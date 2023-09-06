@@ -19,7 +19,7 @@ public class SpawnLevel : MonoBehaviour
 
     // These are used to keep track of when a new piece should be spawned
     private float positionOnCurrentPiece;
-    private float lengthOfPiece = 15f; // All of the pieces have been designed to have an x-value of 15
+    private float lengthOfPiece = 20f; // All of the pieces have been designed to have an x-value of 20
 
     public static SpawnLevel instance;
 

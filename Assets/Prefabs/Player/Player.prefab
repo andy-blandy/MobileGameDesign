@@ -85,11 +85,11 @@ MonoBehaviour:
   distToGround: 0.05
   isGrounded: 0
   gravity: 9.8
-  runSpeed: 1
+  runSpeed: 5
   runEndlessly: 1
   isJumping: 0
   jumpHeight: 2
-  jumpSpeed: 10
+  jumpSpeed: 50
   numOfSteps: 10
   slideRotation: 60
   slidePos: -0.1

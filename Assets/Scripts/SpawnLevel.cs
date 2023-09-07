@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class SpawnLevel : MonoBehaviour
 {
+
+    // This is more like a GameManager
+    // I should change the name of it
+
     public Transform player;
     public Transform playerSpawn;
     public GameObject playerPrefab;
@@ -94,5 +98,21 @@ public class SpawnLevel : MonoBehaviour
 
         levelSpawnPos.x = lengthOfPiece;
         spawnedLevelPieces.Enqueue(Instantiate(levelPieces[1], levelSpawnPos, Quaternion.identity));
+    }
+
+    // This is my very hacky solution for mobile controls
+    public void ButtonJump()
+    {
+        player.gameObject.GetComponent<PlayerMovement>().ButtonJump();
+    }
+
+    public void ButtonSlide()
+    {
+        player.gameObject.GetComponent<PlayerMovement>().ButtonSlide();
+    }
+
+    public void ButtonAttack()
+    {
+        player.gameObject.GetComponent<PlayerMovement>().ButtonAttack();
     }
 }

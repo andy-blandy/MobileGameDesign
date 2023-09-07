@@ -69,36 +69,15 @@ public class PlayerMovement : MonoBehaviour
 
         // Sliding
         // Bring player into slide
-        if (Input.GetKey(KeyCode.S) && !isJumping && isGrounded)
+        if (Input.GetKey(KeyCode.S))
         {
-            // Visuals
-            Vector3 newRot = new Vector3(bodyToRotate.transform.eulerAngles.x, bodyToRotate.transform.eulerAngles.y, slideRotation);
-            bodyToRotate.transform.eulerAngles = newRot;
-            Vector3 newPos = new Vector3(bodyToRotate.transform.position.x, transform.position.y + slidePos, bodyToRotate.transform.position.z);
-            bodyToRotate.transform.position = newPos;
-
-            isSliding = true;
-
-
-            // Set hitboxes
-            slidingHitbox.SetActive(true);
-            runningHitbox.SetActive(false);
+            Slide();
         }
 
         // Bring player out of slide
         if (Input.GetKeyUp(KeyCode.S) || isJumping || !isGrounded)
         {
-            // Visuals
-            Vector3 normRot = new Vector3(bodyToRotate.transform.eulerAngles.x, bodyToRotate.transform.eulerAngles.y, 0f);
-            bodyToRotate.transform.eulerAngles = normRot;
-            Vector3 normPos = new Vector3(bodyToRotate.transform.position.x, transform.position.y, bodyToRotate.transform.position.z);
-            bodyToRotate.transform.position = normPos;
-
-            isSliding = false;
-
-            // Set hitboxes
-            slidingHitbox.SetActive(false);
-            runningHitbox.SetActive(true);
+            ExitSlide();
         }
 
         // Attack
@@ -121,6 +100,69 @@ public class PlayerMovement : MonoBehaviour
             Vector3 move = new Vector3(1f, 0f, 0f);
             transform.Translate(move * runSpeed * Time.deltaTime);
         }
+    }
+
+    public void ButtonJump()
+    {
+        if (!isJumping && isGrounded)
+        {
+            StartCoroutine(Jump());
+        }
+    }
+
+    public void ButtonAttack()
+    {
+        if (!isAttacking && !isSliding)
+        {
+            StartCoroutine(SlashAnimation());
+        }
+    }
+
+    public void ButtonSlide()
+    {
+        if (isSliding)
+        {
+            ExitSlide();
+        } else
+        {
+            Slide();
+        }
+    }
+
+    void Slide()
+    {
+        if (isJumping || !isGrounded)
+        {
+            return;
+        }
+
+        // Visuals
+        Vector3 newRot = new Vector3(bodyToRotate.transform.eulerAngles.x, bodyToRotate.transform.eulerAngles.y, slideRotation);
+        bodyToRotate.transform.eulerAngles = newRot;
+        Vector3 newPos = new Vector3(bodyToRotate.transform.position.x, transform.position.y + slidePos, bodyToRotate.transform.position.z);
+        bodyToRotate.transform.position = newPos;
+
+        isSliding = true;
+
+
+        // Set hitboxes
+        slidingHitbox.SetActive(true);
+        runningHitbox.SetActive(false);
+    }
+
+    void ExitSlide()
+    {
+        // Visuals
+        Vector3 normRot = new Vector3(bodyToRotate.transform.eulerAngles.x, bodyToRotate.transform.eulerAngles.y, 0f);
+        bodyToRotate.transform.eulerAngles = normRot;
+        Vector3 normPos = new Vector3(bodyToRotate.transform.position.x, transform.position.y, bodyToRotate.transform.position.z);
+        bodyToRotate.transform.position = normPos;
+
+        isSliding = false;
+
+        // Set hitboxes
+        slidingHitbox.SetActive(false);
+        runningHitbox.SetActive(true);
     }
 
     IEnumerator Jump()

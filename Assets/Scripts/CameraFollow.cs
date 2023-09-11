@@ -10,6 +10,14 @@ public class CameraFollow : MonoBehaviour
 
     public SpawnLevel spawnLevel;
 
+    #region Singleton
+    public static CameraFollow instance;
+    void Awake()
+    {
+        instance = this;
+    }
+    #endregion
+
     void Start()
     {
         spawnLevel = SpawnLevel.instance;

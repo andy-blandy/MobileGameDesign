@@ -223,4 +223,19 @@ public class PlayerMovement : MonoBehaviour
         meleeAttackVisual.gameObject.SetActive(false);
         isAttacking = false;
     }
+
+    void OnJump()
+    {
+        ButtonJump();
+    }
+
+    void OnSlide()
+    {
+        ButtonSlide();
+    }
+
+    public void ChangePlayerSpeed(float speedAmount)
+    {
+        runSpeed = speedAmount;
+    }
 }

@@ -86,6 +86,19 @@ public class GameManager : MonoBehaviour
         positionOnCurrentPiece = player.position.x % lengthOfPiece;
     }
 
+    public void ChangeDifficulty(string difficultyType)
+    {
+        switch(difficultyType)
+        {
+            case "easy":
+                playerMovementScript.ChangePlayerSpeed(0.5f);
+                break;
+            case "hard":
+                playerMovementScript.ChangePlayerSpeed(1f);
+                break;
+        }
+    }
+
     public void BeginLevel()
     {
         // Clear queue

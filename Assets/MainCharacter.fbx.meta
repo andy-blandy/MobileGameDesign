@@ -3,7 +3,22 @@ guid: f10499309a635ca43af30bcfbdb7bc89
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Beard
+    second: {fileID: 2100000, guid: aaadf6fd09a20d64a989c0476e35c7a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HumanBody_standardSurface2
+    second: {fileID: 2100000, guid: 9a60cbe6656351947997e168ee2b5318, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Knife
+    second: {fileID: 2100000, guid: a174e8be37762674b872d5b9456bd6a1, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

@@ -39,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
     private float startingRotationZ = 60f;
     private bool isAttacking;
 
+    public AudioClip[] soundEffects;
+    AudioSource audioSource = null;
+
     private GameManager gameManager;
 
     void Start()
@@ -53,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
         bodyToRotate.transform.eulerAngles = normRot;
         Vector3 normPos = new Vector3(bodyToRotate.transform.position.x, transform.position.y, bodyToRotate.transform.position.z);
         bodyToRotate.transform.position = normPos;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -65,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && !isJumping && isGrounded)
         {
             StartCoroutine("Jump");
+            audioSource.PlayOneShot(soundEffects[0], 5.0f);
         }
 
         // Sliding
@@ -72,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
         {
             Slide();
+            audioSource.PlayOneShot(soundEffects[1], 0.7f);
         }
 
         // Bring player out of slide
@@ -107,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isJumping && isGrounded)
         {
             StartCoroutine(Jump());
+            audioSource.PlayOneShot(soundEffects[0], 5.0f);
         }
     }
 
@@ -126,6 +134,7 @@ public class PlayerMovement : MonoBehaviour
         } else
         {
             Slide();
+            audioSource.PlayOneShot(soundEffects[1], 0.7f);
         }
     }
 

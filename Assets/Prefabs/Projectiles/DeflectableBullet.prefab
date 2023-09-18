@@ -142,7 +142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 2
-  deflectSpeed: 10
+  deflectSpeed: 15
+  isDeflected: 0
 --- !u!65 &2371443326397197793
 BoxCollider:
   m_ObjectHideFlags: 0

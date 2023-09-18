@@ -214,6 +214,6 @@ public class GameManager : MonoBehaviour
     public void EndLevel()
     {
         // Add code to change scene to the level select screen
-        SceneManager.LoadScene("LevelSelect");
+        SceneManager.LoadScene("EndScreen");
     }
 }

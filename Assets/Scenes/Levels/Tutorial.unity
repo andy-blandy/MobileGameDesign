@@ -5834,14 +5834,19 @@ MonoBehaviour:
     type: 3}
   player: {fileID: 0}
   playerMovementScript: {fileID: 0}
-  isSpawningLevel: 1
   levelPieces:
   - {fileID: 42382127117966722, guid: 2480efbf6912530439355a23ca254eba, type: 3}
   - {fileID: 42382127117966722, guid: 2480efbf6912530439355a23ca254eba, type: 3}
+  - {fileID: 42382127117966722, guid: 2480efbf6912530439355a23ca254eba, type: 3}
   groundHeightOfLevel: -1
+  isSpawningLevel: 1
+  isBossBattle: 0
   respawnPlayerAtCheckpoints: 0
   isCheckingForFailure: 1
   playerFailed: 0
+  bossPrefab: {fileID: 0}
+  bossPlatforms: []
+  bossInstance: {fileID: 0}
 --- !u!114 &1677622819
 MonoBehaviour:
   m_ObjectHideFlags: 0

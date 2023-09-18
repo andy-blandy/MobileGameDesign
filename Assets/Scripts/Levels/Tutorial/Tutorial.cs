@@ -18,6 +18,7 @@ public class Tutorial : MonoBehaviour
     private bool isReading;
     private float readTimer;
     public float timeToReadScreen = 5f;
+    public float yPosition = 1f;
 
     private List<GameObject> spawnedLevelPieces;
 
@@ -108,7 +109,7 @@ public class Tutorial : MonoBehaviour
         // Get appropriate spawn position and create piece
         Vector3 playerPosition = gameManager.player.transform.position;
         Vector3 levelSpawnPosition = new Vector3(playerPosition.x + spawnXPosition, 
-            gameManager.groundHeightOfLevel, 
+            yPosition, 
             playerPosition.z);
 
         spawnedLevelPieces.Add(Instantiate(tutorialLevelPieces[positionInTutorial], levelSpawnPosition, Quaternion.identity));
@@ -150,7 +151,7 @@ public class Tutorial : MonoBehaviour
         // Place the failed level piece in front of the player again
         Vector3 playerPosition = gameManager.player.transform.position;
         Vector3 levelSpawnPosition = new Vector3(playerPosition.x + spawnXPosition + 5f,
-            playerPosition.y,
+            yPosition,
             playerPosition.z);
 
         spawnedLevelPieces[positionInTutorial].transform.position = levelSpawnPosition;

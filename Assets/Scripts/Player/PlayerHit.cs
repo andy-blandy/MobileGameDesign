@@ -19,7 +19,6 @@ public class PlayerHit : MonoBehaviour
             return;
         }
 
-        Debug.Log("PLAYER HIT");
         gameManager.PlayerIsHit();
     }
 }

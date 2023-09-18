@@ -21,4 +21,9 @@ public class Bullet : MonoBehaviour
     {
         rb.AddForce(transform.right * bulletSpeed, ForceMode.Impulse);
     }
+
+    void OnCollisionEnter()
+    {
+        Destroy(gameObject);
+    }
 }

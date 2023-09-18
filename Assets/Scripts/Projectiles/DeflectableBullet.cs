@@ -5,7 +5,7 @@ using UnityEngine;
 public class DeflectableBullet : MonoBehaviour
 {
     public float bulletSpeed = 2.0f;
-    public float deflectSpeed = 10.0f;
+    public float deflectSpeed = 15.0f;
     public bool isDeflected;
     private Rigidbody rb;
 
@@ -38,7 +38,14 @@ public class DeflectableBullet : MonoBehaviour
         if (collision.gameObject.tag == "Obstacle" && isDeflected)
         {
             Destroy(collision.gameObject);
-            Destroy(gameObject);
         }
+
+        if (collision.gameObject.tag == "Boss" && isDeflected)
+        {
+            collision.gameObject.GetComponent<Boss>().Damage();
+
+        }
+
+        Destroy(gameObject);
     }
 }

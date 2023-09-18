@@ -1857,21 +1857,11 @@ MonoBehaviour:
   player: {fileID: 0}
   playerMovementScript: {fileID: 0}
   levelPieces:
-  - {fileID: 5662815972275769169, guid: 3bfaabc228dc419469283c7b6a9caefc, type: 3}
-  - {fileID: 9029794471146432308, guid: 835e6c39e8291384c95a14981bb13552, type: 3}
-  - {fileID: 5828465146485671412, guid: 92cfa630f479a484a8430b9d0d068970, type: 3}
-  - {fileID: 3040328708176520029, guid: da66e620c59fe8845adb68e32818986e, type: 3}
-  - {fileID: 3077220646279888181, guid: 5a261a3d66b35be479b7476c3f5fb12f, type: 3}
-  - {fileID: 5076191965373231528, guid: 7b820696e99d67b40813bc6074ccbda8, type: 3}
-  - {fileID: 3761800204317883005, guid: 20a92f61de1285d4e99f612795e8d4b3, type: 3}
-  - {fileID: 4437449556789881722, guid: aca4521da6a884f48830f2c830b72498, type: 3}
-  - {fileID: 8474487656840888584, guid: 5e058122f0308aa49b0fd81dccf1f1b9, type: 3}
-  - {fileID: 6976933707303892032, guid: f97dbdc97afdd4346a3a7b877cefec3f, type: 3}
-  - {fileID: 4955227736712093860, guid: 385d648dc88e70f4f85a3e63ff229681, type: 3}
-  - {fileID: 7549541387600702610, guid: 0feeb6fc1e40be444a4eaa42100c4d9b, type: 3}
-  groundHeightOfLevel: 0
+  - {fileID: 42382127117966722, guid: 2480efbf6912530439355a23ca254eba, type: 3}
+  - {fileID: 42382127117966722, guid: 2480efbf6912530439355a23ca254eba, type: 3}
+  groundHeightOfLevel: -1
   isSpawningLevel: 1
-  isBossBattle: 0
+  isBossBattle: 1
   respawnPlayerAtCheckpoints: 1
   isCheckingForFailure: 0
   playerFailed: 0

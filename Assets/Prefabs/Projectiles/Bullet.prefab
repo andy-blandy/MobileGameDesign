@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 7356215488625527194}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Deflect
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class PlayerHit : MonoBehaviour
 {
-    private SpawnLevel spawnLevel;
+    private GameManager gameManager;
 
     void Awake()
     {
-        spawnLevel = SpawnLevel.instance;    
+        gameManager = GameManager.instance;    
     }
 
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("HIT " + other.name);
-        spawnLevel.BeginLevel();
+        gameManager.SpawnPlayer();
     }
 }

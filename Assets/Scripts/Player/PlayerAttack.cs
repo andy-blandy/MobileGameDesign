@@ -10,5 +10,10 @@ public class PlayerAttack : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
+
+        if (other.gameObject.tag == "Deflect")
+        {
+            other.gameObject.GetComponent<DeflectableBullet>().Deflect();
+        }
     }
 }

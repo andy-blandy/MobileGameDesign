@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     private float startingRotationZ = 100f;
     private bool isAttacking;
 
-    private SpawnLevel spawnLevel;
+    private GameManager gameManager;
 
     void Start()
     {

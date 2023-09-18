@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnLevel : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-
-    // This is more like a GameManager
-    // I should change the name of it
-
-    public Transform player;
+    [Header("Player")]
     public Transform playerSpawn;
     public GameObject playerPrefab;
+    [HideInInspector] public Transform player;
 
+    [Header("Level")]
+    public bool isSpawningLevel = true;
     public GameObject[] levelPieces;
     private Queue<GameObject> spawnedLevelPieces;
-
     public float groundHeightOfLevel = -1f;
     private Vector3 levelSpawnPos;
 
@@ -25,7 +23,7 @@ public class SpawnLevel : MonoBehaviour
     private float positionOnCurrentPiece;
     private float lengthOfPiece = 20f; // All of the pieces have been designed to have an x-value of 20
 
-    public static SpawnLevel instance;
+    public static GameManager instance;
 
     void Awake()
     {
@@ -38,14 +36,20 @@ public class SpawnLevel : MonoBehaviour
         spawnedLevelPieces = new Queue<GameObject>();
 
         // Set-up level
-        BeginLevel();
+        if (isSpawningLevel)
+        {
+            BeginLevel();
+        }
+
+        SpawnPlayer();
     }
 
     void Update()
     {
 
         if (player.position.x > 0 && 
-            player.position.x % lengthOfPiece < positionOnCurrentPiece)
+            player.position.x % lengthOfPiece < positionOnCurrentPiece &&
+            isSpawningLevel)
         {
             SpawnNextPiece();
         }
@@ -83,15 +87,6 @@ public class SpawnLevel : MonoBehaviour
             Destroy(spawnedLevelPieces.Dequeue());
         }
 
-        // Respawn player
-        if (player != null)
-        {
-            Destroy(player.gameObject);
-        }
-
-        GameObject p = Instantiate(playerPrefab, playerSpawn.position, Quaternion.identity);
-        player = p.transform;
-
         // Spawn two starting pieces
         levelSpawnPos = new Vector3(0f, groundHeightOfLevel, 0f);
         spawnedLevelPieces.Enqueue(Instantiate(levelPieces[0], levelSpawnPos, Quaternion.identity));
@@ -100,7 +95,19 @@ public class SpawnLevel : MonoBehaviour
         spawnedLevelPieces.Enqueue(Instantiate(levelPieces[1], levelSpawnPos, Quaternion.identity));
     }
 
-    // This is my very hacky solution for mobile controls
+    public void SpawnPlayer()
+    {
+        // Respawn player
+        if (player != null)
+        {
+            Destroy(player.gameObject);
+        }
+
+        GameObject p = Instantiate(playerPrefab, playerSpawn.position, Quaternion.identity);
+        player = p.transform;
+    }
+
+    // This connects the UI buttons to the player script
     public void ButtonJump()
     {
         player.gameObject.GetComponent<PlayerMovement>().ButtonJump();

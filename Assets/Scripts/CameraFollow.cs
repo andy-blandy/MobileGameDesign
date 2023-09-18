@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform player;
+    // References
+    private Transform player;
+    private GameManager gameManager;
+
+    [Header("Position")]
     public float xOffset;
     public float yOffset;
-
-    public SpawnLevel spawnLevel;
 
     #region Singleton
     public static CameraFollow instance;
@@ -20,12 +22,12 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
-        spawnLevel = SpawnLevel.instance;
+        gameManager = GameManager.instance;
     }
 
     void LateUpdate()
     {
-        player = spawnLevel.player;
+        player = gameManager.player;
 
         float newX = player.position.x + xOffset;
         float newY = player.position.y + yOffset;

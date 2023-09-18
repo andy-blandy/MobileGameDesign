@@ -534,6 +534,7 @@ GameObject:
   - component: {fileID: 7683183665523393230}
   - component: {fileID: 3962840560152741823}
   - component: {fileID: 4318379814534449399}
+  - component: {fileID: 179887265389415871}
   m_Layer: 0
   m_Name: Sliding
   m_TagString: Untagged
@@ -631,6 +632,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &179887265389415871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5256882496831970102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0189e452bab7d442989eb87c7e53dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5725102594842606730
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,6 +765,7 @@ GameObject:
   - component: {fileID: 814982524218937764}
   - component: {fileID: 2866691991383295453}
   - component: {fileID: 731652455854336374}
+  - component: {fileID: 6775440795724846551}
   m_Layer: 0
   m_Name: Running
   m_TagString: Untagged
@@ -849,3 +863,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6775440795724846551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8150329115581654795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0189e452bab7d442989eb87c7e53dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

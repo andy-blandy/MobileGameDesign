@@ -551,7 +551,7 @@ PrefabInstance:
     - target: {fileID: 8455094708116357737, guid: 6c0125b18b50f9f43830e910255ce9e0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8455094708116357737, guid: 6c0125b18b50f9f43830e910255ce9e0,
         type: 3}
@@ -1797,10 +1797,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d062cc8408fbd6e41bf597350f202094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   playerSpawn: {fileID: 428453360}
   playerPrefab: {fileID: 923675854156050730, guid: 9b88ae75190018f4e9c2f1fd6722368e,
     type: 3}
+  player: {fileID: 0}
+  isSpawningLevel: 1
   levelPieces:
   - {fileID: 42382127117966722, guid: 2480efbf6912530439355a23ca254eba, type: 3}
   - {fileID: 42382127117966722, guid: 2480efbf6912530439355a23ca254eba, type: 3}
@@ -2884,7 +2885,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1867321577
 GameObject:
@@ -3501,10 +3502,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afbe78ff42fb6144d9233be198a78e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   xOffset: 1.8
   yOffset: 1
-  spawnLevel: {fileID: 0}
 --- !u!114 &2106261752
 MonoBehaviour:
   m_ObjectHideFlags: 0

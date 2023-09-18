@@ -5877,6 +5877,7 @@ MonoBehaviour:
   positionInTutorial: 0
   spawnXPosition: 15
   timeToReadScreen: 5
+  yPosition: 0.2
 --- !u!4 &1677622820
 Transform:
   m_ObjectHideFlags: 0

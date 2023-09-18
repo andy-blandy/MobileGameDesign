@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public Transform playerSpawn;
     public GameObject playerPrefab;
     [HideInInspector] public Transform player;
+    [HideInInspector] public PlayerMovement playerMovementScript;
 
     [Header("Level")]
     public bool isSpawningLevel = true;
@@ -15,6 +16,11 @@ public class GameManager : MonoBehaviour
     private Queue<GameObject> spawnedLevelPieces;
     public float groundHeightOfLevel = -1f;
     private Vector3 levelSpawnPos;
+
+    [Header("Level Settings")]
+    public bool respawnPlayerAtCheckpoints = true;
+    public bool isCheckingForFailure = false;
+    [HideInInspector] public bool playerFailed;
 
     // This tells us which piece should be spawned
     private int currentPiece = 0;
@@ -78,8 +84,6 @@ public class GameManager : MonoBehaviour
 
     public void BeginLevel()
     {
-        Debug.Log("Spawning");
-
         // Clear queue
         int numOfPieces = spawnedLevelPieces.Count;
         for (int i = 0; i < numOfPieces; i++)
@@ -105,6 +109,7 @@ public class GameManager : MonoBehaviour
 
         GameObject p = Instantiate(playerPrefab, playerSpawn.position, Quaternion.identity);
         player = p.transform;
+        playerMovementScript = player.GetComponent<PlayerMovement>();
     }
 
     // This connects the UI buttons to the player script
@@ -121,5 +126,24 @@ public class GameManager : MonoBehaviour
     public void ButtonAttack()
     {
         player.gameObject.GetComponent<PlayerMovement>().ButtonAttack();
+    }
+
+    public void PlayerIsHit()
+    {
+        if (respawnPlayerAtCheckpoints)
+        {
+            SpawnPlayer();
+        }
+
+        if (isCheckingForFailure)
+        {
+            playerFailed = true;
+        }
+    }
+
+    public void EndLevel()
+    {
+        // Add code to change scene to the level select screen
+        Debug.Log("RETURN PLAYER TO LEVEL SELECT");
     }
 }

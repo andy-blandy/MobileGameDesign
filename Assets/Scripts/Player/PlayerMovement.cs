@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     public float rotationAmount = 10.0f;
     public int animationSteps = 10;
     public float frameLength = 0.01f;
-    private float startingRotationZ = 100f;
+    private float startingRotationZ = 60f;
     private bool isAttacking;
 
     private GameManager gameManager;

@@ -7,21 +7,15 @@ public class MenuManager : MonoBehaviour
 {
     private SceneManager SceneManager;
 
-    // Start is called before the first frame update
-    void Start()
+
+    public void LoadSceneWithName(string sceneName)
     {
-        
+        SceneManager.LoadScene(sceneName);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoadLevelWithIndex(int levelIndex)
     {
-        
-    }
-
-    public void StartLevel1()
-    {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(levelIndex);
     }
 
     public void Options()

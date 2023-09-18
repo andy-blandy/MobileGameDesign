@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Deflect
+  - TutorialTrigger
   layers:
   - Default
   - TransparentFX

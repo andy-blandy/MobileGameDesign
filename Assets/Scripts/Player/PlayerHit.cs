@@ -13,7 +13,13 @@ public class PlayerHit : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("HIT " + other.name);
-        gameManager.SpawnPlayer();
+        if (other.gameObject.tag == "TutorialTrigger")
+        {
+            Tutorial.instance.CompleteLevelPiece();
+            return;
+        }
+
+        Debug.Log("PLAYER HIT");
+        gameManager.PlayerIsHit();
     }
 }

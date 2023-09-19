@@ -5568,6 +5568,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 495519251}
     m_Modifications:
+    - target: {fileID: 2510723792205623997, guid: ceb7b6cc1f31ccd4c93f366db60adb6f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510723792205623997, guid: ceb7b6cc1f31ccd4c93f366db60adb6f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510723792205623997, guid: ceb7b6cc1f31ccd4c93f366db60adb6f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510723792205623997, guid: ceb7b6cc1f31ccd4c93f366db60adb6f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1290757733}
+    - target: {fileID: 2510723792205623997, guid: ceb7b6cc1f31ccd4c93f366db60adb6f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: UnpauseGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510723792205623997, guid: ceb7b6cc1f31ccd4c93f366db60adb6f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2510723793769653764, guid: ceb7b6cc1f31ccd4c93f366db60adb6f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

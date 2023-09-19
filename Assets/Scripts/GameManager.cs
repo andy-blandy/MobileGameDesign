@@ -91,10 +91,10 @@ public class GameManager : MonoBehaviour
         switch(difficultyType)
         {
             case "easy":
-                playerMovementScript.ChangePlayerSpeed(0.5f);
+                playerMovementScript.ChangePlayerSpeed(5.0f);
                 break;
             case "hard":
-                playerMovementScript.ChangePlayerSpeed(1f);
+                playerMovementScript.ChangePlayerSpeed(8.0f);
                 break;
         }
     }

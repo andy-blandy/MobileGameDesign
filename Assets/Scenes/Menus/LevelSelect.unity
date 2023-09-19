@@ -3009,11 +3009,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7414254503236155187, guid: 007625a343cb341499853d5f450beaba,
-        type: 3}
-      propertyPath: bgAudio
-      value: 
-      objectReference: {fileID: 1618462767}
     - target: {fileID: 7434631665681144265, guid: 007625a343cb341499853d5f450beaba,
         type: 3}
       propertyPath: m_AnchorMax.y

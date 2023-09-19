@@ -2604,34 +2604,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7414254503236155187, guid: 007625a343cb341499853d5f450beaba,
-        type: 3}
-      propertyPath: sfxAudio.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7414254503236155187, guid: 007625a343cb341499853d5f450beaba,
-        type: 3}
-      propertyPath: bgAudio
-      value: 
-      objectReference: {fileID: 1296513645}
-    - target: {fileID: 7414254503236155187, guid: 007625a343cb341499853d5f450beaba,
-        type: 3}
-      propertyPath: sfxAudio.Array.data[0]
-      value: 
-      objectReference: {fileID: 5641790546457893260, guid: 9b88ae75190018f4e9c2f1fd6722368e,
-        type: 3}
-    - target: {fileID: 7414254503236155187, guid: 007625a343cb341499853d5f450beaba,
-        type: 3}
-      propertyPath: sfxAudio.Array.data[1]
-      value: 
-      objectReference: {fileID: 5641790546457893260, guid: 9b88ae75190018f4e9c2f1fd6722368e,
-        type: 3}
-    - target: {fileID: 7414254503236155187, guid: 007625a343cb341499853d5f450beaba,
-        type: 3}
-      propertyPath: sfxAudio.Array.data[2]
-      value: 
-      objectReference: {fileID: 5641790546457893260, guid: 9b88ae75190018f4e9c2f1fd6722368e,
-        type: 3}
     - target: {fileID: 7434631665681144265, guid: 007625a343cb341499853d5f450beaba,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -5905,11 +5877,7 @@ MonoBehaviour:
   positionInTutorial: 0
   spawnXPosition: 15
   timeToReadScreen: 5
-<<<<<<< HEAD
   yPosition: 0.2
-=======
-  yPosition: 1
->>>>>>> UI
 --- !u!4 &1677622820
 Transform:
   m_ObjectHideFlags: 0
@@ -7049,7 +7017,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020423532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 15, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
 {
     [Header("Hitboxes")]
     public GameObject runningHitbox;
@@ -224,14 +225,35 @@ public class PlayerMovement : MonoBehaviour
         isAttacking = false;
     }
 
-    void OnJump()
+    public void OnSwipe(InputAction.CallbackContext callback)
     {
-        ButtonJump();
+        float inputMovement = callback.ReadValue<float>();
+        Debug.Log(inputMovement);
+        Debug.Log("SWIPED");
+
+        if (inputMovement > 0f)
+        {
+            ButtonJump();
+        }
+        else if (inputMovement < 0f)
+        {
+            ButtonSlide();
+        }
     }
 
-    void OnSlide()
+    public void OnAnalog(InputAction.CallbackContext callback)
     {
-        ButtonSlide();
+        Debug.Log("ANALOG");
+        Vector2 inputMovement = callback.ReadValue<Vector2>();
+
+        if (inputMovement.y > 0f)
+        {
+            ButtonJump();
+        }
+        else if (inputMovement.y < 0f)
+        {
+            ButtonSlide();
+        }
     }
 
     public void ChangePlayerSpeed(float speedAmount)

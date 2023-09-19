@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
     private float startingRotationZ = 60f;
     private bool isAttacking;
 
+    public bool isSwipingEnabled;
+
     public AudioClip[] soundEffects;
     AudioSource audioSource = null;
 
@@ -227,9 +229,13 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
 
     public void OnSwipe(InputAction.CallbackContext callback)
     {
+        if (!isSwipingEnabled)
+        {
+            return;
+        }
+
         float inputMovement = callback.ReadValue<float>();
         Debug.Log(inputMovement);
-        Debug.Log("SWIPED");
 
         if (inputMovement > 0f)
         {
@@ -243,7 +249,6 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
 
     public void OnAnalog(InputAction.CallbackContext callback)
     {
-        Debug.Log("ANALOG");
         Vector2 inputMovement = callback.ReadValue<Vector2>();
 
         if (inputMovement.y > 0f)

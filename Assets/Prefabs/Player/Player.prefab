@@ -100,6 +100,7 @@ MonoBehaviour:
   rotationAmount: 5
   animationSteps: 20
   frameLength: 0.02
+  isSwipingEnabled: 0
   soundEffects:
   - {fileID: 8300000, guid: dfae72bbaae67a641819848ca9ac90ac, type: 3}
   - {fileID: 8300000, guid: 81d67c4930c53444abaf53eef4a75a41, type: 3}
@@ -947,7 +948,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.7, z: 1}
+  m_Size: {x: 1, y: 1.2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &731652455854336374
 Rigidbody:

@@ -7,20 +7,14 @@ public class LevelProgress : MonoBehaviour
 {
     int score = 0;
     float time = 0f;
-    public int deaths = 0;
-    public bool speed = false;
-
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI levelText;
-    public TextMeshProUGUI speedText;
-    public TextMeshProUGUI deathText;
+    public TextMeshProUGUI progressBar;
 
     // Start is called before the first frame update
     void Start()
     {
         setScoreText();
-        setDeathText();
-        setSpeedText();
     }
 
     // Update is called once per frame
@@ -45,24 +39,5 @@ public class LevelProgress : MonoBehaviour
         scoreText.text = "Count: " + score.ToString();
     }
 
-    public void setDeathText()
-    {
-        deathText.text = "KIA: " + deaths.ToString();
-    }
-
-    public void setSpeedText()
-    {
-        string diff = "";
-        if (speed == true)
-        {
-            diff = "HARD";
-        }
-        else
-        {
-            diff = "EASY";
-        }
-        speedText.text = "Speed: " + diff;
-    }
-
-
+    
 }

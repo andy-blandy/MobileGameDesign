@@ -2604,6 +2604,34 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7414254503236155187, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: sfxAudio.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414254503236155187, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: bgAudio
+      value: 
+      objectReference: {fileID: 1296513645}
+    - target: {fileID: 7414254503236155187, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: sfxAudio.Array.data[0]
+      value: 
+      objectReference: {fileID: 5641790546457893260, guid: 9b88ae75190018f4e9c2f1fd6722368e,
+        type: 3}
+    - target: {fileID: 7414254503236155187, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: sfxAudio.Array.data[1]
+      value: 
+      objectReference: {fileID: 5641790546457893260, guid: 9b88ae75190018f4e9c2f1fd6722368e,
+        type: 3}
+    - target: {fileID: 7414254503236155187, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: sfxAudio.Array.data[2]
+      value: 
+      objectReference: {fileID: 5641790546457893260, guid: 9b88ae75190018f4e9c2f1fd6722368e,
+        type: 3}
     - target: {fileID: 7434631665681144265, guid: 007625a343cb341499853d5f450beaba,
         type: 3}
       propertyPath: m_AnchorMax.y

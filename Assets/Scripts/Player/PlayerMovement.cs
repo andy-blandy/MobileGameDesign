@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
     public Transform feet;
 
     [Header("Falling")]
-    public float distToGround = 0.01f;
+    public float distToGround = 0.05f;
     public bool isGrounded;
     public float gravity = 9.8f;
 
@@ -66,7 +66,15 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
     void Update()
     {
         // Use a raycast to see if player is touching ground or not
-        isGrounded = Physics.BoxCast(feet.position, feet.localScale / 2, Vector3.down, Quaternion.identity, distToGround);
+        Collider[] hitColliders = Physics.OverlapBox(feet.position, feet.localScale / 2, Quaternion.identity);
+        Debug.Log(hitColliders.Length);
+        if (hitColliders.Length > 0)
+        {
+            isGrounded = true;
+        } else
+        {
+            isGrounded = false;
+        }
 
 
         // Allow player to jump when player is on the ground and presses space
@@ -95,10 +103,7 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
         {
             StartCoroutine(SlashAnimation());
         }
-    }
 
-    void LateUpdate()
-    {
         if (!isGrounded && !isJumping)
         {
             // Apply gravity
@@ -106,7 +111,8 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
         }
 
         // Run endlessly
-        if (runEndlessly) {
+        if (runEndlessly)
+        {
             Vector3 move = new Vector3(1f, 0f, 0f);
             transform.Translate(move * runSpeed * Time.deltaTime);
         }

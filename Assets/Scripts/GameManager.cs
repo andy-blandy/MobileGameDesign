@@ -101,6 +101,8 @@ public class GameManager : MonoBehaviour
 
     public void BeginLevel()
     {
+        Time.timeScale = 1.0f;
+
         // Clear queue
         int numOfPieces = spawnedLevelPieces.Count;
         for (int i = 0; i < numOfPieces; i++)

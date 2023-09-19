@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     private float lengthOfPiece = 20f; // All of the pieces have been designed to have an x-value of 20
 
     public static GameManager instance;
+    LevelProgress LevelProgress;
 
     void Awake()
     {
@@ -91,10 +92,21 @@ public class GameManager : MonoBehaviour
         switch(difficultyType)
         {
             case "easy":
+<<<<<<< HEAD
                 playerMovementScript.ChangePlayerSpeed(5.0f);
                 break;
             case "hard":
                 playerMovementScript.ChangePlayerSpeed(8.0f);
+=======
+                playerMovementScript.ChangePlayerSpeed(0.5f);
+                LevelProgress.speed = false;
+                LevelProgress.setSpeedText();
+                break;
+            case "hard":
+                playerMovementScript.ChangePlayerSpeed(1f); 
+                LevelProgress.speed = true;
+                LevelProgress.setSpeedText();
+>>>>>>> UI
                 break;
         }
     }
@@ -194,6 +206,8 @@ public class GameManager : MonoBehaviour
         {
             currentPiece = currentCheckpoint;
             SpawnPlayer();
+            LevelProgress.deaths = LevelProgress.deaths + 1;
+            LevelProgress.setDeathText();
             BeginLevel();
         }
 

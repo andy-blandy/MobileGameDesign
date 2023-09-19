@@ -17,9 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/LevelOne.unity
     guid: 084d977a578cb264098e1191ebaa76c4
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Menus/EndScreen.unity
     guid: 72f2c5e6006aaed4180d410810c04939

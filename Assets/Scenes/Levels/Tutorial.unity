@@ -2609,6 +2609,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7604386044280569417, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: sfxAudio.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604386044280569417, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: bgAudio
+      value: 
+      objectReference: {fileID: 1296513645}
+    - target: {fileID: 7604386044280569417, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: sfxAudio.Array.data[0]
+      value: 
+      objectReference: {fileID: 5641790546457893260, guid: 9b88ae75190018f4e9c2f1fd6722368e,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 007625a343cb341499853d5f450beaba, type: 3}
 --- !u!1 &701675042 stripped

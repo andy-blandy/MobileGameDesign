@@ -38,8 +38,7 @@ public class GameManager : MonoBehaviour
     private float lengthOfPiece = 20f; // All of the pieces have been designed to have an x-value of 20
 
     public static GameManager instance;
-
-    LevelProgress levelProgress;
+    LevelProgress LevelProgress;
 
     void Awake()
     {
@@ -51,7 +50,7 @@ public class GameManager : MonoBehaviour
         // Instantiate queue
         spawnedLevelPieces = new Queue<GameObject>();
 
-        if (bossPrefab != null )
+        if (bossPrefab != null)
         {
             isBossBattle = true;
         }
@@ -71,7 +70,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        if (player.position.x > 0 && 
+        if (player.position.x > 0 &&
             player.position.x % lengthOfPiece < positionOnCurrentPiece)
         {
             if (isSpawningLevel)
@@ -90,21 +89,23 @@ public class GameManager : MonoBehaviour
 
     public void ChangeDifficulty(string difficultyType)
     {
-        switch(difficultyType)
+        switch (difficultyType)
         {
             case "easy":
-                playerMovementScript.ChangePlayerSpeed(5.0f);
+                playerMovementScript.ChangePlayerSpeed(0.5f);
+                LevelProgress.speed = false;
+                LevelProgress.setSpeedText();
                 break;
             case "hard":
-                playerMovementScript.ChangePlayerSpeed(8.0f);
+                playerMovementScript.ChangePlayerSpeed(1f);
+                LevelProgress.speed = true;
+                LevelProgress.setSpeedText();
                 break;
         }
     }
 
     public void BeginLevel()
     {
-        Time.timeScale = 1.0f;
-
         // Clear queue
         int numOfPieces = spawnedLevelPieces.Count;
         for (int i = 0; i < numOfPieces; i++)
@@ -140,7 +141,8 @@ public class GameManager : MonoBehaviour
             {
                 // Wrap around to zero if the end of the array has been reached
                 currentPiece = 0;
-            } else
+            }
+            else
             {
                 // Begin boss battle phase
                 isSpawningLevel = false;
@@ -196,6 +198,8 @@ public class GameManager : MonoBehaviour
         {
             currentPiece = currentCheckpoint;
             SpawnPlayer();
+            LevelProgress.deaths = LevelProgress.deaths + 1;
+            LevelProgress.setDeathText();
             BeginLevel();
         }
 
@@ -232,20 +236,5 @@ public class GameManager : MonoBehaviour
     {
         // Add code to change scene to the level select screen
         SceneManager.LoadScene("EndScreen");
-    }
-
-    public void PauseGame()
-    {
-        Time.timeScale = 0f;
-    }
-
-    public void UnpauseGame()
-    {
-        Time.timeScale = 1.0f;
-    }
-
-    public void SwipeControls(bool canSwipe)
-    {
-        playerMovementScript.isSwipingEnabled = canSwipe;
     }
 }

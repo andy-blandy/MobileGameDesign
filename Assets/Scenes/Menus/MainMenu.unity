@@ -2109,6 +2109,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7604386044280569417, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: bgAudio
+      value: 
+      objectReference: {fileID: 1618462767}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 007625a343cb341499853d5f450beaba, type: 3}
 --- !u!1001 &8845070001947694305

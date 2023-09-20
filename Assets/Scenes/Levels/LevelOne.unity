@@ -1563,6 +1563,34 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7604386044280569417, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: sfxAudio.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604386044280569417, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: bgAudio
+      value: 
+      objectReference: {fileID: 2106261753}
+    - target: {fileID: 7604386044280569417, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: sfxAudio.Array.data[0]
+      value: 
+      objectReference: {fileID: 5641790546457893260, guid: 9b88ae75190018f4e9c2f1fd6722368e,
+        type: 3}
+    - target: {fileID: 7604386044280569417, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: sfxAudio.Array.data[1]
+      value: 
+      objectReference: {fileID: 5641790546457893260, guid: 9b88ae75190018f4e9c2f1fd6722368e,
+        type: 3}
+    - target: {fileID: 7604386044280569417, guid: 007625a343cb341499853d5f450beaba,
+        type: 3}
+      propertyPath: sfxAudio.Array.data[2]
+      value: 
+      objectReference: {fileID: 5641790546457893260, guid: 9b88ae75190018f4e9c2f1fd6722368e,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 007625a343cb341499853d5f450beaba, type: 3}
 --- !u!1 &589623059 stripped
@@ -3534,8 +3562,8 @@ MonoBehaviour:
   speed: 0
   scoreText: {fileID: 1431984689}
   levelText: {fileID: 977653209}
-  speedText: {fileID: 0}
-  deathText: {fileID: 0}
+  speedText: {fileID: 1866503803}
+  deathText: {fileID: 488783452}
 --- !u!1 &1355701893
 GameObject:
   m_ObjectHideFlags: 0

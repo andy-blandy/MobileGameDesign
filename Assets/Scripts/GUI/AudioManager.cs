@@ -27,13 +27,15 @@ public class AudioManager : MonoBehaviour
             PlayerPrefs.SetFloat(BackgroundPref, bgFloat);
             PlayerPrefs.SetFloat(SFXPref, sfxFloat);
             PlayerPrefs.SetInt(firstPlay, -1);
+            UpdateSound();
         }
         else
         {
             bgFloat = PlayerPrefs.GetFloat(BackgroundPref);
             bgSlider.value = bgFloat;
             sfxFloat = PlayerPrefs.GetFloat(SFXPref);
-            bgSlider.value = bgFloat;
+            sfxSlider.value = bgFloat;
+            UpdateSound();
         }
     }
 
@@ -43,12 +45,10 @@ public class AudioManager : MonoBehaviour
         PlayerPrefs.SetFloat(SFXPref, sfxSlider.value);
     }
 
-    private void OnApplicationFocus(bool focus)
+    private void Update()
     {
-        if (!focus)
-        {
-            SaveSoundSettings();
-        }
+        SaveSoundSettings();
+        UpdateSound();
     }
 
     public void UpdateSound()

@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    LevelProgress levelProgress;
+
     void Awake()
     {
         instance = this;

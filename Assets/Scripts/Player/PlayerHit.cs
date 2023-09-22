@@ -18,7 +18,7 @@ public class PlayerHit : MonoBehaviour
             Tutorial.instance.CompleteLevelPiece();
             return;
         }
-
-        gameManager.PlayerIsHit();
+        
+            gameManager.PlayerIsHit();
     }
 }

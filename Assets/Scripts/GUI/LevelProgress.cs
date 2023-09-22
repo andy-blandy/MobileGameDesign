@@ -15,6 +15,14 @@ public class LevelProgress : MonoBehaviour
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI deathText;
 
+    #region Singleton
+    public static LevelProgress instance;
+    void Awake()
+    {
+        instance = this;
+    }
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {

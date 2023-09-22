@@ -35,10 +35,12 @@ public class GameManager : MonoBehaviour
 
     // These are used to keep track of when a new piece should be spawned
     private float positionOnCurrentPiece;
-    private float lengthOfPiece = 20f; // All of the pieces have been designed to have an x-value of 20
+    private float lengthOfPiece = 30f; // All of the pieces have been designed to have an x-value of 30
 
     public static GameManager instance;
     LevelProgress LevelProgress;
+
+    private float gameSpeed;
 
     void Awake()
     {
@@ -47,6 +49,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        gameSpeed = 1f;
+
         // Instantiate queue
         spawnedLevelPieces = new Queue<GameObject>();
 
@@ -92,12 +96,12 @@ public class GameManager : MonoBehaviour
         switch (difficultyType)
         {
             case "easy":
-                playerMovementScript.ChangePlayerSpeed(0.5f);
+                gameSpeed = 0.7f;
                 LevelProgress.speed = false;
                 LevelProgress.setSpeedText();
                 break;
             case "hard":
-                playerMovementScript.ChangePlayerSpeed(1f);
+                gameSpeed = 1.0f;
                 LevelProgress.speed = true;
                 LevelProgress.setSpeedText();
                 break;
@@ -167,13 +171,18 @@ public class GameManager : MonoBehaviour
         // Respawn player
         if (player != null)
         {
+            Debug.Log("Respawning at checkpoint " + currentCheckpoint);
             player.position = playerSpawn.position;
             return;
         }
+        else
+        {
+            GameObject p = Instantiate(playerPrefab, playerSpawn.position, Quaternion.identity);
+            player = p.transform;
+            playerMovementScript = player.GetComponent<PlayerMovement>();
+        }
 
-        GameObject p = Instantiate(playerPrefab, playerSpawn.position, Quaternion.identity);
-        player = p.transform;
-        playerMovementScript = player.GetComponent<PlayerMovement>();
+        playerMovementScript.isGrounded = false;
     }
 
     // This connects the UI buttons to the player script
@@ -196,10 +205,24 @@ public class GameManager : MonoBehaviour
     {
         if (respawnPlayerAtCheckpoints)
         {
+            // Update scores
+            LevelProgress.instance.deaths = LevelProgress.instance.deaths + 1;
+            LevelProgress.instance.setDeathText();
+
+            // Reset
+            if (currentPiece < 4)
+            {
+                currentCheckpoint = 0;
+            } else if (currentPiece < 9)
+            {
+                currentCheckpoint = 4;
+            } else
+            {
+                currentCheckpoint = 9;
+            }
+
             currentPiece = currentCheckpoint;
             SpawnPlayer();
-            LevelProgress.deaths = LevelProgress.deaths + 1;
-            LevelProgress.setDeathText();
             BeginLevel();
         }
 
@@ -236,5 +259,15 @@ public class GameManager : MonoBehaviour
     {
         // Add code to change scene to the level select screen
         SceneManager.LoadScene("EndScreen");
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void UnpauseGame()
+    {
+        Time.timeScale = gameSpeed;
     }
 }

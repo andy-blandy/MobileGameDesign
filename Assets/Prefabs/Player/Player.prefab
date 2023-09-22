@@ -43,10 +43,11 @@ GameObject:
   - component: {fileID: 471783469092279152}
   - component: {fileID: 5641790546457893260}
   - component: {fileID: 5285809368829618758}
-  - component: {fileID: 8383973914385055447}
+  - component: {fileID: 82392491637524599}
+  - component: {fileID: 3213554429868817857}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,22 +85,20 @@ MonoBehaviour:
   slidingHitbox: {fileID: 5256882496831970102}
   attackHitBox: {fileID: 934068876606886262}
   feet: {fileID: 8434628470067501562}
-  distToGround: 0.05
   isGrounded: 0
-  gravity: 9.8
   runSpeed: 5
   runEndlessly: 1
-  isJumping: 0
-  jumpHeight: 2
-  jumpSpeed: 50
-  numOfSteps: 10
+  jumpCooling: 0
+  jumpXForce: 0.2
+  jumpYForce: 10
+  timeBetweenJumps: 0.01
   slideRotation: 60
   slidePos: -0.1
   bodyToRotate: {fileID: 15122633616990900}
   meleeAttackVisual: {fileID: 4443984226348782831}
   rotationAmount: 5
   animationSteps: 20
-  frameLength: 0.02
+  frameLength: 0.01
   isSwipingEnabled: 0
   soundEffects:
   - {fileID: 8300000, guid: dfae72bbaae67a641819848ca9ac90ac, type: 3}
@@ -117,7 +116,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.40764886
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -297,67 +296,35 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8383973914385055447
-MonoBehaviour:
+--- !u!54 &82392491637524599
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 923675854156050730}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 1
+  m_AngularDrag: 0.1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 122
+  m_CollisionDetection: 0
+--- !u!65 &3213554429868817857
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923675854156050730}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: b8ad2a433309bf54da187de829084f87,
-    type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 471783469092279152}
-        m_MethodName: OnSwipe
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: c2f7cd5e-f0f7-4db9-850f-fc7a3673e8e8
-    m_ActionName: Gameplay/Swipe[/Simulated Touchscreen/delta/y]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 471783469092279152}
-        m_MethodName: OnAnalog
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 1c88e617-b8e9-4404-8950-790dbcf19d8f
-    m_ActionName: Gameplay/Analog
-  m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Gameplay
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.38, y: 0.25, z: 0.4}
+  m_Center: {x: 0.04, y: -0.53, z: 0}
 --- !u!1 &934068876606886262
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,7 +611,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &28012157467764974
 Transform:
   m_ObjectHideFlags: 0
@@ -717,7 +684,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.5, z: 1}
+  m_Size: {x: 1, y: 1.25, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4318379814534449399
 Rigidbody:
@@ -884,7 +851,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8150329115581654795}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0.131, z: 0}
   m_LocalScale: {x: 0.5, y: 0.9, z: 1}
   m_Children: []
   m_Father: {fileID: 3261915394030988021}
@@ -948,8 +915,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.51, z: 1}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!54 &731652455854336374
 Rigidbody:
   m_ObjectHideFlags: 0

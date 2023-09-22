@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
+public class PlayerMovement : MonoBehaviour
 {
     [Header("Hitboxes")]
     public GameObject runningHitbox;
@@ -12,19 +11,17 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
     public Transform feet;
 
     [Header("Falling")]
-    public float distToGround = 0.05f;
     public bool isGrounded;
-    public float gravity = 9.8f;
 
     [Header("Running")]
     public float runSpeed = 1.0f;
     public bool runEndlessly;
 
     [Header("Jump")]
-    public bool isJumping;
-    public float jumpHeight;
-    public float jumpSpeed;
-    public int numOfSteps;
+    public bool jumpCooling;
+    public float jumpXForce = 0f;
+    public float jumpYForce = 1f;
+    public float timeBetweenJumps = 0.5f;
 
     [Header("Slide")]
     public float slideRotation = 60f;
@@ -45,7 +42,14 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
     public AudioClip[] soundEffects;
     AudioSource audioSource = null;
 
+    private Rigidbody m_rigidbody;
+
     private GameManager gameManager;
+
+    void Awake()
+    {
+        m_rigidbody = GetComponent<Rigidbody>();
+    }
 
     void Start()
     {
@@ -65,23 +69,10 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
 
     void Update()
     {
-        // Use a raycast to see if player is touching ground or not
-        Collider[] hitColliders = Physics.OverlapBox(feet.position, feet.localScale / 2, Quaternion.identity);
-        Debug.Log(hitColliders.Length);
-        if (hitColliders.Length > 0)
-        {
-            isGrounded = true;
-        } else
-        {
-            isGrounded = false;
-        }
-
-
         // Allow player to jump when player is on the ground and presses space
-        if (Input.GetKeyDown(KeyCode.W) && !isJumping && isGrounded)
+        if (Input.GetKeyDown(KeyCode.W) && !jumpCooling && isGrounded)
         {
-            StartCoroutine("Jump");
-            audioSource.PlayOneShot(soundEffects[0], 5.0f);
+            Jump();
         }
 
         // Sliding
@@ -89,11 +80,11 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
         if (Input.GetKey(KeyCode.S))
         {
             Slide();
-            audioSource.PlayOneShot(soundEffects[1], 0.7f);
+
         }
 
         // Bring player out of slide
-        if (Input.GetKeyUp(KeyCode.S) || isJumping || !isGrounded)
+        if (Input.GetKeyUp(KeyCode.S) || jumpCooling || !isGrounded)
         {
             ExitSlide();
         }
@@ -104,12 +95,6 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
             StartCoroutine(SlashAnimation());
         }
 
-        if (!isGrounded && !isJumping)
-        {
-            // Apply gravity
-            transform.Translate(Vector3.down * gravity * Time.deltaTime);
-        }
-
         // Run endlessly
         if (runEndlessly)
         {
@@ -118,88 +103,27 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
         }
     }
 
-    public void ButtonJump()
+    public void Jump()
     {
-        if (!isJumping && isGrounded)
-        {
-            StartCoroutine(Jump());
-            audioSource.PlayOneShot(soundEffects[0], 5.0f);
-        }
+        // Add jump to rigidbody
+        Vector3 forceOfJump = new Vector3(jumpXForce,
+            jumpYForce,
+            0f);
+        m_rigidbody.AddForce(forceOfJump, ForceMode.Impulse);
+        StartCoroutine(JumpCooldown());
+
+
+        // Play sound effect
+        audioSource.PlayOneShot(soundEffects[0], 5.0f);
     }
 
-    public void ButtonAttack()
+    IEnumerator JumpCooldown()
     {
-        if (!isAttacking && !isSliding)
-        {
-            StartCoroutine(SlashAnimation());
-        }
-    }
+        jumpCooling = true;
 
-    public void ButtonSlide()
-    {
-        if (isSliding)
-        {
-            ExitSlide();
-        } else
-        {
-            Slide();
-            audioSource.PlayOneShot(soundEffects[1], 0.7f);
-        }
-    }
+        yield return new WaitForSeconds(timeBetweenJumps);
 
-    void Slide()
-    {
-        if (isJumping || !isGrounded)
-        {
-            return;
-        }
-
-        // Visuals
-        Vector3 newRot = new Vector3(bodyToRotate.transform.eulerAngles.x, bodyToRotate.transform.eulerAngles.y, slideRotation);
-        bodyToRotate.transform.eulerAngles = newRot;
-        Vector3 newPos = new Vector3(bodyToRotate.transform.position.x, transform.position.y + slidePos, bodyToRotate.transform.position.z);
-        bodyToRotate.transform.position = newPos;
-
-        isSliding = true;
-
-
-        // Set hitboxes
-        slidingHitbox.SetActive(true);
-        runningHitbox.SetActive(false);
-    }
-
-    void ExitSlide()
-    {
-        // Visuals
-        Vector3 normRot = new Vector3(bodyToRotate.transform.eulerAngles.x, bodyToRotate.transform.eulerAngles.y, 0f);
-        bodyToRotate.transform.eulerAngles = normRot;
-        Vector3 normPos = new Vector3(bodyToRotate.transform.position.x, transform.position.y, bodyToRotate.transform.position.z);
-        bodyToRotate.transform.position = normPos;
-
-        isSliding = false;
-
-        // Set hitboxes
-        slidingHitbox.SetActive(false);
-        runningHitbox.SetActive(true);
-    }
-
-    IEnumerator Jump()
-    {
-        isJumping = true;
-
-        float yCounter = 0;
-        float jumpAmount = jumpHeight / numOfSteps;
-
-        while (yCounter < jumpHeight)
-        {
-            Vector3 movement = Vector3.up * jumpAmount;
-            yCounter += jumpAmount;
-
-            transform.Translate(movement);
-            yield return new WaitForSeconds(1 / jumpSpeed);
-        }
-
-        isJumping = false;
+        jumpCooling = false;
     }
 
     IEnumerator SlashAnimation()
@@ -233,42 +157,82 @@ public class PlayerMovement : MonoBehaviour, InputActions.IGameplayActions
         isAttacking = false;
     }
 
-    public void OnSwipe(InputAction.CallbackContext callback)
+    void Slide()
     {
-        if (!isSwipingEnabled)
+        if (jumpCooling || !isGrounded)
         {
             return;
         }
 
-        float inputMovement = callback.ReadValue<float>();
-        Debug.Log(inputMovement);
+        // Visuals
+        Vector3 newRot = new Vector3(bodyToRotate.transform.eulerAngles.x, bodyToRotate.transform.eulerAngles.y, slideRotation);
+        bodyToRotate.transform.eulerAngles = newRot;
+        Vector3 newPos = new Vector3(bodyToRotate.transform.position.x, transform.position.y + slidePos, bodyToRotate.transform.position.z);
+        bodyToRotate.transform.position = newPos;
 
-        if (inputMovement > 0f)
-        {
-            ButtonJump();
-        }
-        else if (inputMovement < 0f)
-        {
-            ButtonSlide();
-        }
+        isSliding = true;
+
+
+        // Set hitboxes
+        slidingHitbox.SetActive(true);
+        runningHitbox.SetActive(false);
+
+        // Play audio
+        audioSource.PlayOneShot(soundEffects[1], 0.7f);
     }
 
-    public void OnAnalog(InputAction.CallbackContext callback)
+    void ExitSlide()
     {
-        Vector2 inputMovement = callback.ReadValue<Vector2>();
+        // Visuals
+        Vector3 normRot = new Vector3(bodyToRotate.transform.eulerAngles.x, bodyToRotate.transform.eulerAngles.y, 0f);
+        bodyToRotate.transform.eulerAngles = normRot;
+        Vector3 normPos = new Vector3(bodyToRotate.transform.position.x, transform.position.y, bodyToRotate.transform.position.z);
+        bodyToRotate.transform.position = normPos;
 
-        if (inputMovement.y > 0f)
-        {
-            ButtonJump();
-        }
-        else if (inputMovement.y < 0f)
-        {
-            ButtonSlide();
-        }
+        isSliding = false;
+
+        // Set hitboxes
+        slidingHitbox.SetActive(false);
+        runningHitbox.SetActive(true);
     }
 
-    public void ChangePlayerSpeed(float speedAmount)
+    void OnCollisionStay()
     {
-        runSpeed = speedAmount;
+        isGrounded = true;
     }
+
+    void FixedUpdate()
+    {
+        isGrounded = false;
+    }
+
+    #region Touch Controls
+    public void ButtonJump()
+    {
+        if (!jumpCooling && isGrounded)
+        {
+            Jump();
+        }
+    }
+
+    public void ButtonAttack()
+    {
+        if (!isAttacking && !isSliding)
+        {
+            StartCoroutine(SlashAnimation());
+        }
+    }
+
+    public void ButtonSlide()
+    {
+        if (isSliding)
+        {
+            ExitSlide();
+        }
+        else
+        {
+            Slide();
+        }
+    }
+    #endregion
 }

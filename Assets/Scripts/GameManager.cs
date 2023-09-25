@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // PlayerPrefs
+    [HideInInspector] public string controlStateKey = "ControlScheme";
+
     [Header("Player")]
     public Transform playerSpawn;
     public GameObject playerPrefab;
@@ -73,6 +76,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (playerMovementScript == null)
+        {
+            playerMovementScript = player.GetComponent<PlayerMovement>();
+        }
 
         if (player.position.x > 0 &&
             player.position.x % lengthOfPiece < positionOnCurrentPiece)
@@ -183,22 +190,6 @@ public class GameManager : MonoBehaviour
         }
 
         playerMovementScript.isGrounded = false;
-    }
-
-    // This connects the UI buttons to the player script
-    public void ButtonJump()
-    {
-        player.gameObject.GetComponent<PlayerMovement>().ButtonJump();
-    }
-
-    public void ButtonSlide()
-    {
-        player.gameObject.GetComponent<PlayerMovement>().ButtonSlide();
-    }
-
-    public void ButtonAttack()
-    {
-        player.gameObject.GetComponent<PlayerMovement>().ButtonAttack();
     }
 
     public void PlayerIsHit()

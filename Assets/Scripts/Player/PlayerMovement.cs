@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         // Bring player into slide
         if (Input.GetKey(KeyCode.S))
         {
-            Slide();
+            EnterSlide();
 
         }
 
@@ -105,6 +105,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
+        if (jumpCooling || !isGrounded)
+        {
+            return;
+        }
+
         // Add jump to rigidbody
         Vector3 forceOfJump = new Vector3(jumpXForce,
             jumpYForce,
@@ -157,9 +162,9 @@ public class PlayerMovement : MonoBehaviour
         isAttacking = false;
     }
 
-    void Slide()
+    public void EnterSlide()
     {
-        if (jumpCooling || !isGrounded)
+        if (!isGrounded || isSliding)
         {
             return;
         }
@@ -181,8 +186,13 @@ public class PlayerMovement : MonoBehaviour
         audioSource.PlayOneShot(soundEffects[1], 0.7f);
     }
 
-    void ExitSlide()
+    public void ExitSlide()
     {
+        if (!isSliding)
+        {
+            return;
+        }
+
         // Visuals
         Vector3 normRot = new Vector3(bodyToRotate.transform.eulerAngles.x, bodyToRotate.transform.eulerAngles.y, 0f);
         bodyToRotate.transform.eulerAngles = normRot;
@@ -220,18 +230,6 @@ public class PlayerMovement : MonoBehaviour
         if (!isAttacking && !isSliding)
         {
             StartCoroutine(SlashAnimation());
-        }
-    }
-
-    public void ButtonSlide()
-    {
-        if (isSliding)
-        {
-            ExitSlide();
-        }
-        else
-        {
-            Slide();
         }
     }
     #endregion

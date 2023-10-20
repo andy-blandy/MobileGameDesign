@@ -9,7 +9,6 @@ public class AudioManager : MonoBehaviour
     private static readonly string BackgroundPref = "BackgroundPref";
     private static readonly string SFXPref = "SFXPref";
     private int firstPlayInt;
-    public Slider bgSlider, sfxSlider;
     public float bgFloat, sfxFloat;
     public AudioSource bgAudio;
     public AudioSource[] sfxAudio;
@@ -22,8 +21,6 @@ public class AudioManager : MonoBehaviour
         {
             bgFloat = 0.25f;
             sfxFloat = 0.75f;
-            bgSlider.value = bgFloat;
-            sfxSlider.value = sfxFloat;
             PlayerPrefs.SetFloat(BackgroundPref, bgFloat);
             PlayerPrefs.SetFloat(SFXPref, sfxFloat);
             PlayerPrefs.SetInt(firstPlay, -1);
@@ -32,31 +29,31 @@ public class AudioManager : MonoBehaviour
         else
         {
             bgFloat = PlayerPrefs.GetFloat(BackgroundPref);
-            bgSlider.value = bgFloat;
             sfxFloat = PlayerPrefs.GetFloat(SFXPref);
-            sfxSlider.value = bgFloat;
             UpdateSound();
         }
     }
 
-    public void SaveSoundSettings()
+    public void ChangeMusicVolume(Slider musicSlider)
     {
-        PlayerPrefs.SetFloat(BackgroundPref, bgSlider.value);
-        PlayerPrefs.SetFloat(SFXPref, sfxSlider.value);
+        PlayerPrefs.SetFloat(BackgroundPref, musicSlider.value);
+
+        UpdateSound();
     }
 
-    private void Update()
+    public void ChangeSFXVolume(Slider sfxSlider) 
     {
-        SaveSoundSettings();
+        PlayerPrefs.SetFloat(SFXPref, sfxSlider.value);
+
         UpdateSound();
     }
 
     public void UpdateSound()
     {
-        bgAudio.volume = bgSlider.value;
+        bgAudio.volume = PlayerPrefs.GetFloat(BackgroundPref);
         for (int i = 0; i < sfxAudio.Length; i++)
         {
-            sfxAudio[i].volume = sfxSlider.value;
+            sfxAudio[i].volume = PlayerPrefs.GetFloat(SFXPref);
         }
     }
 }

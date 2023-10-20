@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class ControlsManager : MonoBehaviour
 {
-
-
     #region Buttons
     public GameObject jumpButton, slideButton, attackButton;
     private Button m_jumpButton, m_slideButton, m_attackButton;
@@ -36,12 +34,14 @@ public class ControlsManager : MonoBehaviour
 
     [HideInInspector] public ControlsManager instance;
 
-    // Debugging
+    [Header("Debug")]
     public TextMeshProUGUI touchPositionValueText;
     public TextMeshProUGUI controlStateText;
     public TextMeshProUGUI touchNumberText;
     public TextMeshProUGUI isSwipingDebugText;
     public TextMeshProUGUI isFingerDownDebugText;
+    public GameObject startSwipePosGameObject;
+    public TextMeshProUGUI startSwipePosDebugText;
 
     void Awake()
     {
@@ -194,6 +194,14 @@ public class ControlsManager : MonoBehaviour
     private void UpdateDebugger()
     {
         controlStateText.text = currentControlState;
+
+        if (currentControlState == "swipe")
+        {
+            startSwipePosGameObject.SetActive(true);
+        } else
+        {
+            startSwipePosGameObject.SetActive(false);
+        }
     }
     #endregion
 
@@ -204,24 +212,32 @@ public class ControlsManager : MonoBehaviour
 
     private void TapUpdate()
     {
-        if (Input.touchCount == 1)
+        if (Input.touchCount >= 1)
         {
             Touch touch = Input.GetTouch(0);
 
-
-            if (touch.phase == TouchPhase.Began)
+            // If touching the right side of the screen...
+            if (touch.position.x > (Screen.width / 2))
             {
-                ButtonEnterSlide();
+                ButtonAttack();
+            }
+            else
+            {
+                if (touch.phase == TouchPhase.Began)
+                {
+                    ButtonEnterSlide();
+                }
+
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    ButtonExitSlide();
+                }
             }
 
-            if (touch.phase == TouchPhase.Ended)
+            if (Input.touchCount == 2 && Input.GetTouch(1).position.x < (Screen.width / 2))
             {
-                ButtonExitSlide();
+                ButtonJump();
             }
-        }
-        else if (Input.touchCount == 2)
-        {
-            ButtonJump();
         }
 
         isTapping = true;
@@ -243,6 +259,9 @@ public class ControlsManager : MonoBehaviour
         {
             startSwipePosition = Input.touches[0].position;
             isFingerDown = true;
+
+            // Debug
+            startSwipePosDebugText.text = startSwipePosition.ToString();
         }
 
         // If the finger is moving on the screen...
@@ -252,25 +271,38 @@ public class ControlsManager : MonoBehaviour
         {
             Vector2 endSwipePosition = Input.touches[0].position;
 
-            // Check for vertical direction of the swipe
-            if (endSwipePosition.y > (startSwipePosition.y + swipeControlSensitivity)) // Swipe up
+            // If the swipe began on the left side of the screen...
+            if (startSwipePosition.x < (Screen.width / 2))
             {
-                gameManager.playerMovementScript.Jump();
+                // Check for vertical direction of the swipe
+                if (endSwipePosition.y > (startSwipePosition.y + swipeControlSensitivity)) // Swipe up
+                {
+                    gameManager.playerMovementScript.Jump();
 
-                startSwipePosition = Input.touches[0].position;
+                    startSwipePosition = Input.touches[0].position;
 
-                // Begin cooldown between swipes
-                isSwiping = true;
-                swipeCooldownCoroutine = StartCoroutine(SwipeCooldown());
-            } else if (endSwipePosition.y < (startSwipePosition.y - swipeControlSensitivity)) // Swipe down
+                    // Begin cooldown between swipes
+                    isSwiping = true;
+                    swipeCooldownCoroutine = StartCoroutine(SwipeCooldown());
+                }
+                else if (endSwipePosition.y < (startSwipePosition.y - swipeControlSensitivity)) // Swipe down
+                {
+                    gameManager.playerMovementScript.EnterSlide();
+
+                    startSwipePosition = Input.touches[0].position;
+
+                    // Begin cooldown between swipes
+                    isSwiping = true;
+                    swipeCooldownCoroutine = StartCoroutine(SwipeCooldown());
+                }
+            } else
             {
-                gameManager.playerMovementScript.EnterSlide();
-
-                startSwipePosition = Input.touches[0].position;
-
-                // Begin cooldown between swipes
-                isSwiping = true;
-                swipeCooldownCoroutine = StartCoroutine(SwipeCooldown());
+                // If the swipe began on the right side of the screen...
+                if (endSwipePosition.y > (startSwipePosition.y + swipeControlSensitivity) ||
+                    endSwipePosition.y < (startSwipePosition.y - swipeControlSensitivity))
+                {
+                    ButtonAttack();
+                }
             }
 
         }

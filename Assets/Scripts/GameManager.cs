@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
     public GameObject[] bossPlatforms;
     public GameObject bossInstance;
 
+    [Header("Game State")]
+    public float distanceInLevel;
+    private float totalDistanceOfLevel;
+
     // This tells us which piece should be spawned
     private int currentPiece = 0;
     private int currentCheckpoint;
@@ -62,8 +66,12 @@ public class GameManager : MonoBehaviour
             isBossBattle = true;
         }
 
+        // Set up game-state stuff
         currentPiece = 0;
         currentCheckpoint = 0;
+
+        // This is used to calculate the player's distance in the level- purely for the progress bar
+        totalDistanceOfLevel = levelPieces.Length * lengthOfPiece;
 
         // Set-up level
         if (isSpawningLevel)
@@ -81,6 +89,7 @@ public class GameManager : MonoBehaviour
             playerMovementScript = player.GetComponent<PlayerMovement>();
         }
 
+        // Spawn the next level piece when the player reaches a certain position on the current level piece
         if (player.position.x > 0 &&
             player.position.x % lengthOfPiece < positionOnCurrentPiece)
         {
@@ -96,6 +105,11 @@ public class GameManager : MonoBehaviour
         }
 
         positionOnCurrentPiece = player.position.x % lengthOfPiece;
+
+        // Update the progress slider
+        float playerPositionInEntireLevel = ((currentPiece - 2) * lengthOfPiece) + positionOnCurrentPiece;
+        distanceInLevel = playerPositionInEntireLevel / totalDistanceOfLevel;
+        LevelProgress.instance.UpdateProgressSlider(distanceInLevel);
     }
 
     public void ChangeDifficulty(string difficultyType)

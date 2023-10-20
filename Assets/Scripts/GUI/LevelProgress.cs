@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class LevelProgress : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class LevelProgress : MonoBehaviour
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI deathText;
+    public Slider progressSlider;
 
     #region Singleton
     public static LevelProgress instance;
@@ -70,6 +72,11 @@ public class LevelProgress : MonoBehaviour
             diff = "EASY";
         }
         speedText.text = "Speed: " + diff;
+    }
+
+    public void UpdateProgressSlider(float newProgressValue)
+    {
+        progressSlider.value = newProgressValue;
     }
 
 

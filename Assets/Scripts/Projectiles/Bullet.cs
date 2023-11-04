@@ -22,8 +22,13 @@ public class Bullet : MonoBehaviour
         rb.AddForce(transform.right * bulletSpeed, ForceMode.Impulse);
     }
 
-    void OnCollisionEnter()
+    void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.tag == "Obstacle")
+        {
+            return;
+        }
+
         Destroy(gameObject);
     }
 }

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private Vector3 levelSpawnPos;
 
     [Header("Level Settings")]
+    public bool trackLevelProgress = true;
     public bool isSpawningLevel = true;
     public bool isBossBattle = false;
     public bool respawnPlayerAtCheckpoints = true;
@@ -109,7 +110,11 @@ public class GameManager : MonoBehaviour
         // Update the progress slider
         float playerPositionInEntireLevel = ((currentPiece - 2) * lengthOfPiece) + positionOnCurrentPiece;
         distanceInLevel = playerPositionInEntireLevel / totalDistanceOfLevel;
-        LevelProgress.instance.UpdateProgressSlider(distanceInLevel);
+
+        if (trackLevelProgress)
+        {
+            LevelProgress.instance.UpdateProgressSlider(distanceInLevel);
+        }
     }
 
     public void ChangeDifficulty(string difficultyType)

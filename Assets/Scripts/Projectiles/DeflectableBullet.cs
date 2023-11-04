@@ -38,14 +38,22 @@ public class DeflectableBullet : MonoBehaviour
         if (collision.gameObject.tag == "Obstacle" && isDeflected)
         {
             Destroy(collision.gameObject);
+            Destroy(gameObject);
         }
 
         if (collision.gameObject.tag == "Boss" && isDeflected)
         {
             collision.gameObject.GetComponent<Boss>().Damage();
+            Destroy(gameObject);
 
         }
 
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            return;
+        }
+
         Destroy(gameObject);
+
     }
 }

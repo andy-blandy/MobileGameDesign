@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
+    [Header("Settings")]
     public float timeBetweenShots = 5f;
     private float timer;
     public float bulletLifespan = 3f;
@@ -13,7 +14,9 @@ public class Turret : MonoBehaviour
     public Transform bulletSpawn;
 
     private GameManager gameManager;
-    private float distanceFromPlayer;
+
+    [Header("Game Logic")]
+    public float distanceFromPlayer;
 
     void Start()
     {

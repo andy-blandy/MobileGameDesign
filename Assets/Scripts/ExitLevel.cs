@@ -5,19 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ExitLevel : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void exitLevel()
+    public void CloseLevel()
     {
         SceneManager.LoadScene(1);
     }

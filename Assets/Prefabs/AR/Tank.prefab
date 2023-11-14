@@ -25,11 +25,12 @@ Transform:
   m_GameObject: {fileID: 250202554904668406}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.37402916, z: -0.17}
+  m_LocalPosition: {x: 0, y: 0.37402916, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4406686438850273068}
+  - {fileID: 8691681762793359065}
   m_Father: {fileID: 9199044177447176254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1096239688235907266
@@ -115,6 +116,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2238082450358434262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8691681762793359065}
+  m_Layer: 0
+  m_Name: primaryProjSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8691681762793359065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2238082450358434262}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3764357227110828175}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2432055725442842941
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +441,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.10000001, y: 0.10000001, z: 0.10000001}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2542712272357692239}
@@ -449,8 +481,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1376d150d49665439b96371230d3a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankGameObject: {fileID: 4548722877673534321}
   animator: {fileID: 2518101454087896176}
+  tankGameObject: {fileID: 4548722877673534321}
+  headTransform: {fileID: 9199044177447176254}
+  gunTransform: {fileID: 3764357227110828175}
+  primaryTurretSpawn: {fileID: 8691681762793359065}
+  primaryProjectile: {fileID: 6856958550904980556, guid: 6a8fe03dfcc07104c809faa72e385a58,
+    type: 3}
+  timeBetweenShots: 2
+  shotTimer: 0
 --- !u!1 &4906447906690034760
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,8 +800,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7281782476252703131}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.0712161, y: 0, z: 4.6790214}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.0712161, y: 0, z: 2.24}
   m_LocalScale: {x: 0.0053412076, y: 0.05341349, z: 0.005247826}
   m_ConstrainProportionsScale: 0
   m_Children: []

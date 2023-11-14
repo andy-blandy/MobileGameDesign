@@ -8,6 +8,7 @@ TagManager:
   - Deflect
   - TutorialTrigger
   - Boss
+  - AR_Plane
   layers:
   - Default
   - TransparentFX

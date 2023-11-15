@@ -48,6 +48,7 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+<<<<<<< Updated upstream
     "com.unity.inputsystem": {
       "version": "1.7.0",
       "depth": 0,
@@ -62,6 +63,13 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
+=======
+    "com.unity.test-framework": {
+      "version": "1.1.33",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+>>>>>>> Stashed changes
         "com.unity.ext.nunit": "1.0.6",
         "com.unity.modules.imgui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"

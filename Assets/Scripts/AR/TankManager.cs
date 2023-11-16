@@ -20,6 +20,9 @@ public class TankManager : MonoBehaviour
     List<ARRaycastHit> m_Hits = new List<ARRaycastHit>();
     const TrackableType trackableTypes = TrackableType.PlaneWithinPolygon;
 
+    [Header("Aiming")]
+    public List<Transform> aimingGrid;
+
     public static TankManager instance;
     void Awake()
     {

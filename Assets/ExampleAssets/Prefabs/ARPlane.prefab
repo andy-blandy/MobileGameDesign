@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7953324094329720777}
   - component: {fileID: 7096468269689538693}
   - component: {fileID: 8552019320052076660}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ARPlane
   m_TagString: AR_Plane
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ MeshCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

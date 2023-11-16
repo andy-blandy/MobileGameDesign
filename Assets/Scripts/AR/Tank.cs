@@ -17,7 +17,6 @@ public class Tank : MonoBehaviour
     public Stack<GameObject> primaryProjectileContainer = new Stack<GameObject>();
 
     [Header("Secondary Fire")]
-    public List<Transform> aimingGrid;
     public GameObject secondaryProjectile;
     public Stack<GameObject> secondaryProjectileContainer = new Stack<GameObject>();
     public Transform rightTurret, leftTurret;
@@ -32,6 +31,7 @@ public class Tank : MonoBehaviour
     [Header("Aiming")]
     public float headTurnSpeed;
     public float gunTurnSpeed;
+    public float bodyTurnSpeed;
 
     void Awake()
     {
@@ -57,6 +57,7 @@ public class Tank : MonoBehaviour
             return;
         }
 
+        MoveTowardsPlayer();
         LookTowardsPlayer();
 
         CountdownTimer();
@@ -80,6 +81,17 @@ public class Tank : MonoBehaviour
         gunAngle = Mathf.Clamp(gunAngle, -70, 15);
         gunAngle = Mathf.LerpAngle(gunTransform.localEulerAngles.x, gunAngle, gunTurnSpeed * Time.deltaTime);
         gunTransform.localEulerAngles = new Vector3(gunAngle, 0f, 0f);
+    }
+
+    void MoveTowardsPlayer()
+    {
+        Vector3 arCameraPosition = TankManager.instance.arCameraTransform.position;
+
+        // Body Rotation
+        Vector3 playerHorizPosition = new Vector3(arCameraPosition.x, transform.position.y, arCameraPosition.z);
+        Quaternion bodyRotation = Quaternion.LookRotation(playerHorizPosition - transform.position);
+        bodyRotation = Quaternion.Slerp(transform.rotation, bodyRotation, bodyTurnSpeed * Time.deltaTime);
+        transform.rotation = bodyRotation;
     }
 
     void CountdownTimer()
@@ -130,8 +142,8 @@ public class Tank : MonoBehaviour
         // 0 is top left, 24 is bottom right
 
         // Aim turrets
-        rightTurret.LookAt(aimingGrid[locationA]);
-        leftTurret.LookAt(aimingGrid[locationB]);
+        rightTurret.LookAt(TankManager.instance.aimingGrid[locationA]);
+        leftTurret.LookAt(TankManager.instance.aimingGrid[locationB]);
 
         // Fire projectiles
         if (secondaryProjectileContainer.TryPop(out GameObject projA))
@@ -159,27 +171,27 @@ public class Tank : MonoBehaviour
     IEnumerator EasyAttack1()
     {
 
-        SecondaryShoot(16, 18);
+        SecondaryShoot(18, 16);
         yield return waitBetweenShots;
-        SecondaryShoot(11, 13);
+        SecondaryShoot(13, 11);
         yield return waitBetweenShots;
-        SecondaryShoot(6, 8);
+        SecondaryShoot(8, 6);
     }
 
     IEnumerator EasyAttack2()
     {
-        SecondaryShoot(18, 6);
+        SecondaryShoot(6, 18);
         yield return waitBetweenShots;
-        SecondaryShoot(17, 7);
+        SecondaryShoot(7, 17);
         yield return waitBetweenShots;
-        SecondaryShoot(16, 8);
+        SecondaryShoot(8, 16);
     }
 
     IEnumerator EasyAttack3()
     {
-        SecondaryShoot(20, 4);
+        SecondaryShoot(4, 20);
         yield return waitBetweenShots;
-        SecondaryShoot(16, 8);
+        SecondaryShoot(8, 16);
         yield return waitBetweenShots;
         PrimaryShoot();
     }

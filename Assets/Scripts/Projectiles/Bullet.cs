@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Obstacle")
+        if (other.gameObject.tag == "Obstacle" || other.gameObject.tag == "AR_Plane")
         {
             return;
         }
@@ -52,6 +52,8 @@ public class Bullet : MonoBehaviour
         {
             AR_GameManager.instance.playerScript.Damage();
         }
+
+        AR_GameManager.instance.SetDebugText(other.gameObject.name);
 
         // Stop the object and play destroy effect
         rb.velocity = Vector3.zero;

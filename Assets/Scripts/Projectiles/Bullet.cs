@@ -6,20 +6,39 @@ public class Bullet : MonoBehaviour
 {
     public float bulletSpeed = 2.0f;
     private Rigidbody rb;
+    public ParticleSystem explosionParticleSystem;
+    public GameObject model;
+
+    public float lifeSpan;
+    public float lifeTimer;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    void Start()
+    void OnEnable()
     {
         AddMovement();
+
+        lifeTimer = 0;
+    }
+
+    void Update()
+    {
+        lifeTimer += Time.deltaTime;
+
+        if (lifeTimer >= lifeSpan)
+        {
+            gameObject.SetActive(false);
+            SaveBullet();
+        }
+
     }
 
     public void AddMovement()
     {
-        rb.AddForce(transform.right * bulletSpeed, ForceMode.Impulse);
+        rb.AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
     }
 
     void OnCollisionEnter(Collision other)
@@ -29,6 +48,35 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        Destroy(gameObject);
+        if (other.gameObject.tag == "AR_Player")
+        {
+            AR_GameManager.instance.playerScript.Damage();
+        }
+
+        // Stop the object and play destroy effect
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        model.SetActive(false);
+        StartCoroutine(PlayExplosionParticles());
+    }
+
+    IEnumerator PlayExplosionParticles()
+    {
+        explosionParticleSystem.Play();
+
+        while (explosionParticleSystem.isPlaying)
+        {
+            yield return null;
+        }
+
+        gameObject.SetActive(false);
+        model.SetActive(true);
+
+        SaveBullet();
+    }
+
+    public virtual void SaveBullet()
+    {
+
     }
 }

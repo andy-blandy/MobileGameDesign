@@ -20,9 +20,6 @@ public class TankManager : MonoBehaviour
     List<ARRaycastHit> m_Hits = new List<ARRaycastHit>();
     const TrackableType trackableTypes = TrackableType.PlaneWithinPolygon;
 
-    [Header("UI")]
-    public TextMeshProUGUI debugText;
-
     public static TankManager instance;
     void Awake()
     {
@@ -60,10 +57,5 @@ public class TankManager : MonoBehaviour
     public void SwitchScene(int sceneNumber)
     {
         SceneManager.LoadScene(sceneNumber);
-    }
-
-    public void SetDebugText(string incomingText)
-    {
-        debugText.text = incomingText;
     }
 }

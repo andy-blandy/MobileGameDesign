@@ -9,6 +9,7 @@ TagManager:
   - TutorialTrigger
   - Boss
   - AR_Plane
+  - AR_Player
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - GravityForceField
+  - Projectile
   - 
   - 
   - 

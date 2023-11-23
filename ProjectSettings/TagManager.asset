@@ -10,6 +10,8 @@ TagManager:
   - Boss
   - AR_Plane
   - AR_Player
+  - AR_Attack
+  - AR_Tank
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - GravityForceField
   - Projectile
   - AR_Ground
-  - 
+  - AR_Enemy
   - 
   - 
   - 

@@ -33,6 +33,9 @@ public class Tank : MonoBehaviour
     public float gunTurnSpeed;
     public float bodyTurnSpeed;
 
+    [Header("Stats")]
+    public int health;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -48,6 +51,7 @@ public class Tank : MonoBehaviour
 
         // Set logic
         orderInAttacks = 0;
+        health = 3;
     }
 
     void Update()
@@ -109,15 +113,15 @@ public class Tank : MonoBehaviour
         switch (orderInAttacks)
         {
             case 0:
-                StartCoroutine(EasyAttack1());
+                Attack1();
                 orderInAttacks++;
                 break;
             case 1:
-                StartCoroutine(EasyAttack2());
+                Attack2();
                 orderInAttacks++;
                 break;
             case 2:
-                StartCoroutine(EasyAttack3());
+                Attack3();
                 orderInAttacks = 0;
                 break;
         }
@@ -168,9 +172,71 @@ public class Tank : MonoBehaviour
         }
     }
 
+    public void Damage()
+    {
+        health--;
+
+        if (health <= 0)
+        {
+            DestroyTank();
+        }
+    }
+
+    public void DestroyTank()
+    {
+        AR_GameManager.instance.WinGame();
+    }
+
+    void Attack1()
+    {
+        switch (health)
+        {
+            case 3:
+                StartCoroutine(EasyAttack1());
+                break;
+            case 2:
+                StartCoroutine(MedAttack1());
+                break;
+            case 1:
+                StartCoroutine(HardAttack1());
+                break;
+        }
+    }
+
+    void Attack2()
+    {
+        switch (health)
+        {
+            case 3:
+                StartCoroutine(EasyAttack2());
+                break;
+            case 2:
+                StartCoroutine(MedAttack2());
+                break;
+            case 1:
+                StartCoroutine(HardAttack2());
+                break;
+        }
+    }
+
+    void Attack3()
+    {
+        switch (health)
+        {
+            case 3:
+                StartCoroutine(EasyAttack3());
+                break;
+            case 2:
+                StartCoroutine(MedAttack3());
+                break;
+            case 1:
+                StartCoroutine(HardAttack3());
+                break;
+        }
+    }
+
     IEnumerator EasyAttack1()
     {
-
         SecondaryShoot(18, 16);
         yield return waitBetweenShots;
         SecondaryShoot(13, 11);
@@ -193,6 +259,82 @@ public class Tank : MonoBehaviour
         yield return waitBetweenShots;
         SecondaryShoot(8, 16);
         yield return waitBetweenShots;
+        PrimaryShoot();
+    }
+
+    IEnumerator MedAttack1()
+    {
+        SecondaryShoot(4, 0);
+        yield return waitBetweenShots;
+        SecondaryShoot(9, 5);
+        yield return waitBetweenShots;
+        SecondaryShoot(14, 10);
+        yield return waitBetweenShots;
+        SecondaryShoot(19, 15);
+        yield return waitBetweenShots;
+        SecondaryShoot(24, 20);
+    }
+
+    IEnumerator MedAttack2()
+    {
+        SecondaryShoot(2, 1);
+        yield return waitBetweenShots;
+        SecondaryShoot(8, 7);
+        yield return waitBetweenShots;
+        SecondaryShoot(14, 13);
+        yield return waitBetweenShots;
+        SecondaryShoot(10, 15);
+        yield return waitBetweenShots;
+        SecondaryShoot(16, 21);
+    }
+
+    IEnumerator MedAttack3()
+    {
+        SecondaryShoot(2, 7);
+        yield return waitBetweenShots;
+        SecondaryShoot(17, 22);
+        yield return waitBetweenShots;
+        SecondaryShoot(13, 11);
+        yield return waitBetweenShots;
+        SecondaryShoot(14, 10);
+        PrimaryShoot();
+    }
+
+    IEnumerator HardAttack1()
+    {
+        SecondaryShoot(8, 6);
+        yield return waitBetweenShots;
+        SecondaryShoot(18, 16);
+        yield return waitBetweenShots;
+        SecondaryShoot(9, 5);
+        yield return waitBetweenShots;
+        SecondaryShoot(13, 11);
+        yield return waitBetweenShots;
+        SecondaryShoot(7, 7);
+    }
+
+    IEnumerator HardAttack2()
+    {
+        SecondaryShoot(4, 20);
+        yield return waitBetweenShots;
+        SecondaryShoot(8, 18);
+        yield return waitBetweenShots;
+        SecondaryShoot(12, 12);
+        yield return waitBetweenShots;
+        SecondaryShoot(18, 6);
+        yield return waitBetweenShots;
+        SecondaryShoot(24, 0);
+    }
+
+    IEnumerator HardAttack3()
+    {
+        SecondaryShoot(11, 13);
+        yield return waitBetweenShots;
+        SecondaryShoot(16, 8);
+        yield return waitBetweenShots;
+        SecondaryShoot(12, 12);
+        yield return waitBetweenShots;
+        SecondaryShoot(7, 17);
         PrimaryShoot();
     }
 }

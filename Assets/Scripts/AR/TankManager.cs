@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,11 +13,11 @@ public class TankManager : MonoBehaviour
     public Transform arCameraTransform;
     public GameObject tankGameObject;
     public Tank tankScript;
-
     public GameObject tankPrefab;
 
     [Header("AR")]
     [SerializeField] ARRaycastManager m_RaycastManager;
+    [SerializeField] ARPlaneManager m_PlaneManager;
     List<ARRaycastHit> m_Hits = new List<ARRaycastHit>();
     const TrackableType trackableTypes = TrackableType.PlaneWithinPolygon;
 
@@ -28,23 +29,25 @@ public class TankManager : MonoBehaviour
     {
         instance = this;
     }
-    
-    void Update()
-    {
-        if (tankGameObject != null)
-        {
-            return;
-        }
 
-        if (m_RaycastManager.Raycast(arCameraTransform.position, m_Hits, trackableTypes))
+    void OnEnable()
+    {
+        m_PlaneManager.planesChanged += FindPointOnPlane;
+    }
+
+    private void FindPointOnPlane(ARPlanesChangedEventArgs args)
+    {
+        if (m_RaycastManager.Raycast(new Vector2(Screen.width / 2, Screen.height / 2), m_Hits, trackableTypes))
         {
             SpawnTank(m_Hits[0].pose.position);
+            m_PlaneManager.planesChanged -= FindPointOnPlane;
         }
     }
 
     public void SpawnTank(Vector3 spawnPosition)
     {
         tankGameObject = Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
+        tankScript = tankGameObject.GetComponent<Tank>();
     }
 
     public void AnimateTank()
@@ -55,10 +58,5 @@ public class TankManager : MonoBehaviour
         }
 
         tankScript.animator.Play("TankSpawn");
-    }
-
-    public void SwitchScene(int sceneNumber)
-    {
-        SceneManager.LoadScene(sceneNumber);
     }
 }

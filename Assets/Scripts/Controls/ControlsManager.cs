@@ -217,7 +217,7 @@ public class ControlsManager : MonoBehaviour
             Touch touch = Input.GetTouch(0);
 
             // If touching the right side of the screen...
-            if (touch.position.x > (Screen.width / 2))
+            if (touch.position.x > (Screen.width / 2) && touch.phase == TouchPhase.Began)
             {
                 ButtonAttack();
             }

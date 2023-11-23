@@ -5,8 +5,9 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float bulletSpeed = 2.0f;
-    private Rigidbody rb;
+    public Rigidbody rb;
     public ParticleSystem explosionParticleSystem;
+    public float explosionTime;
     public GameObject model;
 
     public float lifeSpan;
@@ -15,6 +16,8 @@ public class Bullet : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
+        explosionTime = explosionParticleSystem.main.duration;
     }
 
     void OnEnable()
@@ -30,8 +33,7 @@ public class Bullet : MonoBehaviour
 
         if (lifeTimer >= lifeSpan)
         {
-            gameObject.SetActive(false);
-            SaveBullet();
+            StartCoroutine(PlayExplosionParticles());
         }
 
     }
@@ -41,7 +43,7 @@ public class Bullet : MonoBehaviour
         rb.AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
     }
 
-    void OnCollisionEnter(Collision other)
+    public virtual void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Obstacle" || other.gameObject.tag == "AR_Plane")
         {
@@ -58,19 +60,19 @@ public class Bullet : MonoBehaviour
         // Stop the object and play destroy effect
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        model.SetActive(false);
+
         StartCoroutine(PlayExplosionParticles());
     }
 
     IEnumerator PlayExplosionParticles()
     {
+        model.SetActive(false);
+
         explosionParticleSystem.Play();
+        
+        yield return new WaitForSeconds(explosionTime);
 
-        while (explosionParticleSystem.isPlaying)
-        {
-            yield return null;
-        }
-
+        explosionParticleSystem.Stop();
         gameObject.SetActive(false);
         model.SetActive(true);
 

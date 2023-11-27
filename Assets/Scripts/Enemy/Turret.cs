@@ -15,6 +15,9 @@ public class Turret : MonoBehaviour
 
     private GameManager gameManager;
 
+    public AudioClip[] soundEffects;
+    AudioSource audioSource = null;
+
     [Header("Game Logic")]
     public float distanceFromPlayer;
 
@@ -22,6 +25,8 @@ public class Turret : MonoBehaviour
     {
         gameManager = GameManager.instance;
         timer = timeBetweenShots - 1;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -48,6 +53,8 @@ public class Turret : MonoBehaviour
 
     void SpawnBullet()
     {
+        audioSource.PlayOneShot(soundEffects[0], 5.0f);
+
         GameObject b = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
         timer = 0f;
 

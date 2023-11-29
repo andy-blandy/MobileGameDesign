@@ -5,30 +5,82 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float bulletSpeed = 2.0f;
-    private Rigidbody rb;
+    public Rigidbody rb;
+    public ParticleSystem explosionParticleSystem;
+    public float explosionTime;
+    public GameObject model;
+
+    public float lifeSpan;
+    public float lifeTimer;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
+        explosionTime = explosionParticleSystem.main.duration;
     }
 
-    void Start()
+    void OnEnable()
     {
         AddMovement();
+
+        lifeTimer = 0;
+    }
+
+    void Update()
+    {
+        lifeTimer += Time.deltaTime;
+
+        if (lifeTimer >= lifeSpan)
+        {
+            StartCoroutine(PlayExplosionParticles());
+        }
+
     }
 
     public void AddMovement()
     {
-        rb.AddForce(transform.right * bulletSpeed, ForceMode.Impulse);
+        rb.AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
     }
 
-    void OnCollisionEnter(Collision other)
+    public virtual void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Obstacle")
+        if (other.gameObject.tag == "Obstacle" || other.gameObject.tag == "AR_Plane")
         {
             return;
         }
 
-        Destroy(gameObject);
+        if (other.gameObject.tag == "AR_Player")
+        {
+            AR_GameManager.instance.playerScript.Damage();
+        }
+
+        AR_GameManager.instance.SetDebugText(other.gameObject.name);
+
+        // Stop the object and play destroy effect
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        StartCoroutine(PlayExplosionParticles());
+    }
+
+    IEnumerator PlayExplosionParticles()
+    {
+        model.SetActive(false);
+
+        explosionParticleSystem.Play();
+        
+        yield return new WaitForSeconds(explosionTime);
+
+        explosionParticleSystem.Stop();
+        gameObject.SetActive(false);
+        model.SetActive(true);
+
+        SaveBullet();
+    }
+
+    public virtual void SaveBullet()
+    {
+
     }
 }

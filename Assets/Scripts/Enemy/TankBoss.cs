@@ -21,6 +21,9 @@ public class TankBoss : Boss
 
     private Transform playerInstance;
 
+    public AudioClip[] soundEffects;
+    AudioSource audioSource = null;
+
     void Awake()
     {
         numberOfPhases = 2;
@@ -30,6 +33,8 @@ public class TankBoss : Boss
     void Start()
     {
         playerInstance = GameManager.instance.player;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -78,11 +83,13 @@ public class TankBoss : Boss
 
     void ShootRegularBullet()
     {
+        audioSource.PlayOneShot(soundEffects[0], 5.0f);
         Instantiate(regularBullet, bulletSpawn.position, bulletSpawn.rotation);
     }
 
     void ShootDeflectableBullet() 
     {
+        audioSource.PlayOneShot(soundEffects[1], 5.0f);
         Instantiate(deflectableBullet, deflectableBulletSpawn.position, deflectableBulletSpawn.rotation);
     }
 }

@@ -17,7 +17,7 @@ public class TankBoss : Boss
     public float numberOfRegularShots;
 
     [Header("Settings")]
-    public float distanceFromPlayer = 15f;
+    public float distanceFromPlayer = 20f;
 
     private Transform playerInstance;
 

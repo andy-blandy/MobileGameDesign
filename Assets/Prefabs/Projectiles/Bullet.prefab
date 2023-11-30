@@ -9812,7 +9812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b3f818d41ec84438dc5b1093b0bf75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 2
+  bulletSpeed: 3
   rb: {fileID: 0}
   explosionParticleSystem: {fileID: 8578528513245343875}
   explosionTime: 1

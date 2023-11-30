@@ -11,6 +11,7 @@ public class CameraFollow : MonoBehaviour
     [Header("Position")]
     public float xOffset;
     public float yOffset;
+    public float zOffset;
 
     #region Singleton
     public static CameraFollow instance;
@@ -31,8 +32,16 @@ public class CameraFollow : MonoBehaviour
 
         float newX = player.position.x + xOffset;
         float newY = player.position.y + yOffset;
-        Vector3 newPos = new Vector3(newX, newY, transform.position.z);
+        float newZ = player.position.z + zOffset;
+        Vector3 newPos = new Vector3(newX, newY, newZ);
 
         transform.position = newPos;
+    }
+
+    public void SetOffsets(float newXOffset, float newYOffset, float newZOffset)
+    {
+        xOffset = newXOffset;
+        yOffset = newYOffset;
+        zOffset = newZOffset;
     }
 }

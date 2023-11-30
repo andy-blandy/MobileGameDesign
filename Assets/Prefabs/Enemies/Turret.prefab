@@ -200,7 +200,8 @@ MonoBehaviour:
   range: 20
   bullet: {fileID: 6856958550904980556, guid: 31fb8b97a79c9d04493e0b95bb7c1664, type: 3}
   bulletSpawn: {fileID: 2380871875593169501}
-  soundEffects: []
+  soundEffects:
+  - {fileID: 8300000, guid: 7d69f0eec79b68642aca005359cdbdbb, type: 3}
   distanceFromPlayer: 0
 --- !u!82 &6922506719319219644
 AudioSource:
@@ -214,8 +215,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.304
+  m_Pitch: 0.06
   Loop: 0
   Mute: 0
   Spatialize: 0

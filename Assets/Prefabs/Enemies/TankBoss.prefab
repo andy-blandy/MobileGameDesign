@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3419862079559001796}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3419862079559001797}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -4, y: 1.2, z: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -3.348, y: 1.2, z: 0.007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3419862080885227799}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &3419862080885227785
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3419862080885227784}
   - component: {fileID: 275364479419618917}
   - component: {fileID: 7524772128399268417}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TankBoss
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -88,9 +88,9 @@ MonoBehaviour:
     type: 3}
   bulletSpawn: {fileID: 3419862079559001796}
   deflectableBulletSpawn: {fileID: 3419862079559001796}
-  timeBetweenEachShot: 1
+  timeBetweenEachShot: 1.5
   numberOfRegularShots: 3
-  distanceFromPlayer: 7
+  distanceFromPlayer: 10.3
   soundEffects:
   - {fileID: 8300000, guid: 7d69f0eec79b68642aca005359cdbdbb, type: 3}
   - {fileID: 8300000, guid: 26bc3771e5083f24b851b41a84faa26e, type: 3}
@@ -127,8 +127,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.273
+  m_Pitch: 0.06
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -289,10 +289,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8513424388201257645, guid: 8371177e8299c664486f301aac784873,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -5731229141766309534, guid: 8371177e8299c664486f301aac784873,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -3957782524123411102, guid: 8371177e8299c664486f301aac784873,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -2793727289926329592, guid: 8371177e8299c664486f301aac784873,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8371177e8299c664486f301aac784873,
         type: 3}
       propertyPath: m_Name
       value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8371177e8299c664486f301aac784873,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507767883509144192, guid: 8371177e8299c664486f301aac784873,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2866621852552652557, guid: 8371177e8299c664486f301aac784873,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3779745573541866595, guid: 8371177e8299c664486f301aac784873,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

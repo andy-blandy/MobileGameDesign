@@ -51,11 +51,11 @@ public class TankBoss : Boss
         switch (currentPhase)
         {
             case 0:
-                // Nothing happens
+                StartCoroutine(ShootBullets2());
                 break;
             case 1:
                 // Tank shoots
-                StartCoroutine(ShootBullets());
+                StartCoroutine(ShootBullets1());
                 break;
             default:
                 break;
@@ -68,7 +68,7 @@ public class TankBoss : Boss
         }
     }
 
-    IEnumerator ShootBullets()
+    IEnumerator ShootBullets1()
     {
         for (int i = 0; i < numberOfRegularShots; i++)
         {
@@ -79,6 +79,17 @@ public class TankBoss : Boss
         yield return new WaitForSeconds(timeBetweenEachShot);
         ShootDeflectableBullet();
 
+    }
+
+    IEnumerator ShootBullets2()
+    {
+        YieldInstruction yieldInstructions = new WaitForSeconds(1f);
+
+        yield return yieldInstructions;
+        ShootRegularBullet();
+        yield return yieldInstructions;
+        yield return yieldInstructions;
+        ShootRegularBullet();
     }
 
     void ShootRegularBullet()

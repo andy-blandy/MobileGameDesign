@@ -117,23 +117,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ChangeDifficulty(string difficultyType)
-    {
-        switch (difficultyType)
-        {
-            case "easy":
-                gameSpeed = 0.7f;
-                LevelProgress.speed = false;
-                LevelProgress.SetSpeedText();
-                break;
-            case "hard":
-                gameSpeed = 1.0f;
-                LevelProgress.speed = true;
-                LevelProgress.SetSpeedText();
-                break;
-        }
-    }
-
     public void BeginLevel()
     {
         // Clear queue
@@ -263,6 +246,8 @@ public class GameManager : MonoBehaviour
         levelSpawnPos.x = distanceTravelled * lengthOfPiece;
 
         bossInstance = Instantiate(bossPrefab, levelSpawnPos, Quaternion.identity);
+
+        CameraFollow.instance.SetOffsets(3.86f, 2.28f, -13.33f);
     }
 
     public void EndLevel()

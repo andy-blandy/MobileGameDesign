@@ -29,7 +29,6 @@ public class LevelProgress : MonoBehaviour
     void Start()
     {
         SetDeathText();
-        SetSpeedText();
     }
 
     // Update is called once per frame
@@ -49,21 +48,7 @@ public class LevelProgress : MonoBehaviour
 
     public void SetDeathText()
     {
-        deathText.text = "KIA: " + deaths.ToString();
-    }
-
-    public void SetSpeedText()
-    {
-        string diff = "";
-        if (speed == true)
-        {
-            diff = "HARD";
-        }
-        else
-        {
-            diff = "EASY";
-        }
-        speedText.text = "Speed: " + diff;
+        deathText.text = deaths.ToString();
     }
 
     public void UpdateProgressSlider(float newProgressValue)

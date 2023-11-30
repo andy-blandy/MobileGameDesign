@@ -37,18 +37,31 @@ public class PlayerMovement : MonoBehaviour
     private float startingRotationZ = 60f;
     private bool isAttacking;
 
+    [Header("Death")]
+    public bool isDead;
+
+    [Header("Animation")]
+    public bool switchingAnimation;
+    public float animationCooldown = 0.1f;
+
+    [Header("Controls")]
     public bool isSwipingEnabled;
 
+    [Header("SFX")]
     public AudioClip[] soundEffects;
     AudioSource audioSource = null;
 
+    [Header("Components")]
+    public Animator animator;
     private Rigidbody m_rigidbody;
 
     private GameManager gameManager;
+    public static PlayerMovement instance;
 
     void Awake()
     {
         m_rigidbody = GetComponent<Rigidbody>();
+        instance = this;
     }
 
     void Start()
@@ -69,6 +82,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         // Allow player to jump when player is on the ground and presses space
         if (Input.GetKeyDown(KeyCode.W) && !jumpCooling && isGrounded)
         {
@@ -101,6 +119,26 @@ public class PlayerMovement : MonoBehaviour
             Vector3 move = new Vector3(1f, 0f, 0f);
             transform.Translate(move * runSpeed * Time.deltaTime);
         }
+
+        if (!isGrounded && !isAttacking && !animator.GetCurrentAnimatorStateInfo(0).IsName("Jumping Anim") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Falling Anim"))
+        {
+            animator.Play("Falling Anim");
+        }
+
+        if (isGrounded && !isSliding && !isAttacking && !animator.GetCurrentAnimatorStateInfo(0).IsName("Running Animation") && !switchingAnimation)
+        {
+            animator.CrossFade("Running Animation", 0.1f);
+            StartCoroutine(AnimationSwitchCooldown());
+        }
+    }
+
+    IEnumerator AnimationSwitchCooldown()
+    {
+        switchingAnimation = true;
+
+        yield return new WaitForSeconds(animationCooldown);
+
+        switchingAnimation = false;
     }
 
     public void Jump()
@@ -109,6 +147,9 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
+
+        // Animate
+        animator.CrossFade("Jumping Anim", 1f);
 
         // Add jump to rigidbody
         Vector3 forceOfJump = new Vector3(jumpXForce,
@@ -135,29 +176,12 @@ public class PlayerMovement : MonoBehaviour
     {
         isAttacking = true;
 
-        // Make attack visual visible
-        meleeAttackVisual.gameObject.SetActive(true);
-        meleeAttackVisual.alpha = 1f;
-
-        // Set attack visual to starting position
-        Vector3 startingRotation = new Vector3(0f, 0f, startingRotationZ);
-        meleeAttackVisual.transform.eulerAngles = startingRotation;
-
-        // Activate hitbox
-        attackHitBox.SetActive(true);
-
         // Animate
-        Vector3 rot = new Vector3(0f, 0f, rotationAmount * -1);
-        float transparencyChangeAmount = 1f / animationSteps;
-        for (int i = 0; i < animationSteps; i++)
-        {
-            yield return new WaitForSeconds(frameLength);
-            meleeAttackVisual.transform.Rotate(rot);
-            meleeAttackVisual.alpha -= transparencyChangeAmount;
-        }
+        animator.CrossFade("Attack Anim", 0.3f);
+
+        yield return new WaitForSeconds(0.5f);
 
         // Deactivate all the stuff
-        attackHitBox.SetActive(false);
         meleeAttackVisual.gameObject.SetActive(false);
         isAttacking = false;
     }
@@ -169,14 +193,10 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        // Visuals
-        Vector3 newRot = new Vector3(bodyToRotate.transform.eulerAngles.x, bodyToRotate.transform.eulerAngles.y, slideRotation);
-        bodyToRotate.transform.eulerAngles = newRot;
-        Vector3 newPos = new Vector3(bodyToRotate.transform.position.x, transform.position.y + slidePos, bodyToRotate.transform.position.z);
-        bodyToRotate.transform.position = newPos;
-
         isSliding = true;
 
+        // Animation
+        animator.CrossFade("Slide", 0.2f);
 
         // Set hitboxes
         slidingHitbox.SetActive(true);
@@ -233,4 +253,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     #endregion
+
+    public IEnumerator PlayerDeath()
+    {
+        animator.CrossFade("Dying Anim", 0.2f);
+        isDead = true;
+
+        yield return new WaitForSeconds(1f);
+
+        GameManager.instance.PlayerIsHit();
+        isDead = false;
+    }
 }

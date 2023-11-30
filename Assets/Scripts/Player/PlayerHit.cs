@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class PlayerHit : MonoBehaviour
 {
-    private GameManager gameManager;
-
-    void Awake()
-    {
-        gameManager = GameManager.instance;    
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "TutorialTrigger")
@@ -18,7 +11,7 @@ public class PlayerHit : MonoBehaviour
             Tutorial.instance.CompleteLevelPiece();
             return;
         }
-        
-            gameManager.PlayerIsHit();
+
+        StartCoroutine(PlayerMovement.instance.PlayerDeath());
     }
 }

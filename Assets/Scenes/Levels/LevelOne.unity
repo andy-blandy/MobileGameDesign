@@ -750,18 +750,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1431984689 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7024002727702108491, guid: 73681fd79ebd0dc46a742e8b452ce1cf,
-    type: 3}
-  m_PrefabInstance: {fileID: 7024002728461681530}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1465758032 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7024002727668150826, guid: 73681fd79ebd0dc46a742e8b452ce1cf,
@@ -1244,7 +1232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deaths: 0
   speed: 0
-  scoreText: {fileID: 1431984689}
+  scoreText: {fileID: 0}
   levelText: {fileID: 977653209}
   speedText: {fileID: 1866503803}
   deathText: {fileID: 488783452}
@@ -2200,6 +2188,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 3faefe8499c77944da7f8986eb7a7e26,
         type: 3}
+    - target: {fileID: 7024002727702108491, guid: 73681fd79ebd0dc46a742e8b452ce1cf,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 7024002727702108491, guid: 73681fd79ebd0dc46a742e8b452ce1cf,
+        type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 7024002727702108491, guid: 73681fd79ebd0dc46a742e8b452ce1cf,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7024002727740117320, guid: 73681fd79ebd0dc46a742e8b452ce1cf,
         type: 3}
       propertyPath: m_text
@@ -2351,7 +2354,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7024002727702108501, guid: 73681fd79ebd0dc46a742e8b452ce1cf, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73681fd79ebd0dc46a742e8b452ce1cf, type: 3}

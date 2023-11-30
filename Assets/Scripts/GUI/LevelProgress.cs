@@ -28,9 +28,8 @@ public class LevelProgress : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        setScoreText();
-        setDeathText();
-        setSpeedText();
+        SetDeathText();
+        SetSpeedText();
     }
 
     // Update is called once per frame
@@ -46,21 +45,14 @@ public class LevelProgress : MonoBehaviour
         {
             score = score + 5;
         }
-        setScoreText();
     }
 
-
-    public void setScoreText()
-    {
-        scoreText.text = "Score: " + score.ToString();
-    }
-
-    public void setDeathText()
+    public void SetDeathText()
     {
         deathText.text = "KIA: " + deaths.ToString();
     }
 
-    public void setSpeedText()
+    public void SetSpeedText()
     {
         string diff = "";
         if (speed == true)

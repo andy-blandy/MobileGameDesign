@@ -124,12 +124,12 @@ public class GameManager : MonoBehaviour
             case "easy":
                 gameSpeed = 0.7f;
                 LevelProgress.speed = false;
-                LevelProgress.setSpeedText();
+                LevelProgress.SetSpeedText();
                 break;
             case "hard":
                 gameSpeed = 1.0f;
                 LevelProgress.speed = true;
-                LevelProgress.setSpeedText();
+                LevelProgress.SetSpeedText();
                 break;
         }
     }
@@ -217,21 +217,21 @@ public class GameManager : MonoBehaviour
         {
             // Update scores
             LevelProgress.instance.deaths = LevelProgress.instance.deaths + 1;
-            LevelProgress.instance.setDeathText();
+            LevelProgress.instance.SetDeathText();
 
-            // Reset
-            if (currentPiece < 4)
+            // Checkpoints
+            if (currentPiece < 5)
             {
                 currentCheckpoint = 0;
-            } else if (currentPiece < 9)
+            } else if (currentPiece < 10)
             {
                 currentCheckpoint = 4;
             } else
             {
                 currentCheckpoint = 9;
             }
-
             currentPiece = currentCheckpoint;
+            
             SpawnPlayer();
             BeginLevel();
         }

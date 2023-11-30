@@ -53,7 +53,7 @@ public class Turret : MonoBehaviour
 
     void SpawnBullet()
     {
-        //audioSource.PlayOneShot(soundEffects[0], 5.0f);
+        audioSource.PlayOneShot(soundEffects[0], 5.0f);
 
         GameObject b = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
         timer = 0f;

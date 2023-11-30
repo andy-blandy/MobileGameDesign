@@ -55,8 +55,6 @@ public class Bullet : MonoBehaviour
             AR_GameManager.instance.playerScript.Damage();
         }
 
-        AR_GameManager.instance.SetDebugText(other.gameObject.name);
-
         // Stop the object and play destroy effect
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
@@ -64,7 +62,7 @@ public class Bullet : MonoBehaviour
         StartCoroutine(PlayExplosionParticles());
     }
 
-    IEnumerator PlayExplosionParticles()
+    public IEnumerator PlayExplosionParticles()
     {
         model.SetActive(false);
 

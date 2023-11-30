@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeflectableBullet : MonoBehaviour
+public class DeflectableBullet : Bullet
 {
-    public float bulletSpeed = 2.0f;
     public float deflectSpeed = 15.0f;
     public bool isDeflected;
-    private Rigidbody rb;
 
     void Awake()
     {
@@ -15,25 +13,15 @@ public class DeflectableBullet : MonoBehaviour
         isDeflected = false;
     }
 
-    void Start()
-    {
-        AddMovement();
-    }
-
-    public void AddMovement()
-    {
-        rb.AddForce(transform.right *  bulletSpeed, ForceMode.Impulse);
-    }
-
     public void Deflect()
     {
         Vector3 rotationAmonut = new Vector3(0f, 180f, 0f);
         transform.Rotate(rotationAmonut);
-        rb.AddForce(transform.right * deflectSpeed, ForceMode.Impulse);
+        rb.AddForce(transform.forward * deflectSpeed, ForceMode.Impulse);
         isDeflected = true;
     }
 
-    void OnCollisionEnter(Collision collision)
+    public override void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Obstacle" && isDeflected)
         {
@@ -53,7 +41,16 @@ public class DeflectableBullet : MonoBehaviour
             return;
         }
 
-        Destroy(gameObject);
+        // Stop the object and play destroy effect
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
 
+        StartCoroutine(PlayExplosionParticles());
+
+    }
+
+    public override void SaveBullet()
+    {
+        Destroy(gameObject);
     }
 }

@@ -2,58 +2,83 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    private static readonly string firstPlay = "FirstPlay";
-    private static readonly string BackgroundPref = "BackgroundPref";
-    private static readonly string SFXPref = "SFXPref";
-    private int firstPlayInt;
-    public float bgFloat, sfxFloat;
-    public AudioSource bgAudio;
-    public AudioSource[] sfxAudio;
+    private static readonly string masterPref = "MasterVol";
+    private static readonly string musicPref = "MusicVol";
+    private static readonly string sfxPref = "SFXVol";
+    public float masterVol, musicVol, sfxVol;
 
-    // Start is called before the first frame update
+    public Slider masterSlider, musicSlider, sfxSlider;
+
+    public AudioMixer audioMixer;
+
     void Start()
     {
-        firstPlayInt = PlayerPrefs.GetInt(firstPlay);
-        if (firstPlayInt == 0)
+        if (!PlayerPrefs.HasKey(masterPref))
         {
-            bgFloat = 0.25f;
-            sfxFloat = 0.75f;
-            PlayerPrefs.SetFloat(BackgroundPref, bgFloat);
-            PlayerPrefs.SetFloat(SFXPref, sfxFloat);
-            PlayerPrefs.SetInt(firstPlay, -1);
-            UpdateSound();
+            masterVol = 0f;
+            musicVol = -10f;
+            sfxVol = -20f;
+
+            UpdatePlayerPrefs();
         }
         else
         {
-            bgFloat = PlayerPrefs.GetFloat(BackgroundPref);
-            sfxFloat = PlayerPrefs.GetFloat(SFXPref);
-            UpdateSound();
+            masterVol = PlayerPrefs.GetFloat(masterPref);
+            musicVol = PlayerPrefs.GetFloat(musicPref);
+            sfxVol = PlayerPrefs.GetFloat(sfxPref);
         }
+
+        UpdateSliders();
+        UpdateSound();
+    }
+
+    public void ChangeMasterVolume(Slider masterSlider)
+    {
+        masterVol = masterSlider.value;
+        audioMixer.SetFloat("Master", masterVol);
+
     }
 
     public void ChangeMusicVolume(Slider musicSlider)
     {
-        PlayerPrefs.SetFloat(BackgroundPref, musicSlider.value);
-
-        UpdateSound();
+        musicVol = musicSlider.value;
+        audioMixer.SetFloat("Music", musicVol);
     }
 
     public void ChangeSFXVolume(Slider sfxSlider) 
     {
-        PlayerPrefs.SetFloat(SFXPref, sfxSlider.value);
+        sfxVol = sfxSlider.value;
+        audioMixer.SetFloat("SFX", sfxVol);
+    }
 
+    public void ConfirmChanges()
+    {
+        UpdatePlayerPrefs();
         UpdateSound();
+    }
+
+    public void UpdatePlayerPrefs()
+    {
+        PlayerPrefs.SetFloat(masterPref, masterVol);
+        PlayerPrefs.SetFloat(musicPref, musicVol);
+        PlayerPrefs.SetFloat(sfxPref, sfxVol);
     }
 
     public void UpdateSound()
     {
-        bgAudio.volume = PlayerPrefs.GetFloat(BackgroundPref);
-        for (int i = 0; i < sfxAudio.Length; i++)
-        {
-            sfxAudio[i].volume = PlayerPrefs.GetFloat(SFXPref);
-        }
+        audioMixer.SetFloat("Master", masterVol);
+        audioMixer.SetFloat("Music", musicVol);
+        audioMixer.SetFloat("SFX", sfxVol);
+    }
+
+    public void UpdateSliders()
+    {
+        masterSlider.value = masterVol;
+        musicSlider.value = musicVol;
+        sfxSlider.value = sfxVol;
     }
 }

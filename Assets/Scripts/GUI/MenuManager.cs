@@ -10,14 +10,14 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public void LoadLevelWithIndex(int levelIndex)
+    public void LoadSceneWithIndex(int levelIndex)
     {
         SceneManager.LoadScene(levelIndex);
     }
 
-    public void Options()
+    public void StopMusic()
     {
-        //
+        MenuMusic.instance.KillMusic();
     }
 
     public void ExitGame()

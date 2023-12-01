@@ -958,7 +958,7 @@ MonoBehaviour:
   tapCooldownTime: 0.02
   swipeCooldownTime: 0.1
   isTapping: 0
-  isSwiping: 1
+  isSwiping: 0
   swipeControlSensitivity: 50
   currentControlState: 
   instance: {fileID: 0}

@@ -4941,7 +4941,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 704
+    m_Bits: 192
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -4962,7 +4962,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -4982,13 +4982,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06b3538bd8c6314cb361116f0e5c0da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 0.3
+  bulletSpeed: 0.5
   rb: {fileID: 0}
   explosionParticleSystem: {fileID: 4714486433248770477}
+  explosionTime: 0
   model: {fileID: 7041188530881875530}
   lifeSpan: 5
   lifeTimer: 0
   deflected: 0
+  damagedTank: 0
 --- !u!1 &7555826015494128658
 GameObject:
   m_ObjectHideFlags: 0

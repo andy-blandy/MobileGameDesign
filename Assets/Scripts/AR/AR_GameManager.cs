@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class AR_GameManager : MonoBehaviour
 {
-    [Header("UI")]
-    public TextMeshProUGUI debugText;
-
     [Header("VFX")]
     public GameObject smokeEffect;
 
@@ -31,10 +28,5 @@ public class AR_GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         AR_Pause.instance.winScreen.SetActive(true);
-    }
-
-    public void SetDebugText(string incomingText)
-    {
-        debugText.text = incomingText;
     }
 }

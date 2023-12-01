@@ -93,9 +93,14 @@ public class Tank : MonoBehaviour
 
         // Body Rotation
         Vector3 playerHorizPosition = new Vector3(arCameraPosition.x, transform.position.y, arCameraPosition.z);
-        Quaternion bodyRotation = Quaternion.LookRotation(playerHorizPosition - transform.position);
-        bodyRotation = Quaternion.Slerp(transform.rotation, bodyRotation, bodyTurnSpeed * Time.deltaTime);
-        transform.rotation = bodyRotation;
+        Vector3 deltaPosition = playerHorizPosition - transform.position;
+
+        if (deltaPosition != Vector3.zero)
+        {
+            Quaternion bodyRotation = Quaternion.LookRotation(deltaPosition);
+            bodyRotation = Quaternion.Slerp(transform.rotation, bodyRotation, bodyTurnSpeed * Time.deltaTime);
+            transform.rotation = bodyRotation;
+        }
     }
 
     void CountdownTimer()
@@ -131,9 +136,9 @@ public class Tank : MonoBehaviour
     {
         if (primaryProjectileContainer.TryPop(out GameObject proj))
         {
-            proj.SetActive(true);
             proj.transform.position = primaryTurretSpawn.position;
             proj.transform.rotation = primaryTurretSpawn.rotation;
+            proj.SetActive(true);
         }
         else
         {
@@ -239,7 +244,6 @@ public class Tank : MonoBehaviour
     {
         SecondaryShoot(18, 16);
         yield return waitBetweenShots;
-        SecondaryShoot(13, 11);
         yield return waitBetweenShots;
         SecondaryShoot(8, 6);
     }
@@ -248,7 +252,6 @@ public class Tank : MonoBehaviour
     {
         SecondaryShoot(6, 18);
         yield return waitBetweenShots;
-        SecondaryShoot(7, 17);
         yield return waitBetweenShots;
         SecondaryShoot(8, 16);
     }
@@ -257,7 +260,6 @@ public class Tank : MonoBehaviour
     {
         SecondaryShoot(4, 20);
         yield return waitBetweenShots;
-        SecondaryShoot(8, 16);
         yield return waitBetweenShots;
         PrimaryShoot();
     }
@@ -268,11 +270,8 @@ public class Tank : MonoBehaviour
         yield return waitBetweenShots;
         SecondaryShoot(9, 5);
         yield return waitBetweenShots;
+        yield return waitBetweenShots;
         SecondaryShoot(14, 10);
-        yield return waitBetweenShots;
-        SecondaryShoot(19, 15);
-        yield return waitBetweenShots;
-        SecondaryShoot(24, 20);
     }
 
     IEnumerator MedAttack2()
@@ -281,19 +280,12 @@ public class Tank : MonoBehaviour
         yield return waitBetweenShots;
         SecondaryShoot(8, 7);
         yield return waitBetweenShots;
+        yield return waitBetweenShots;
         SecondaryShoot(14, 13);
-        yield return waitBetweenShots;
-        SecondaryShoot(10, 15);
-        yield return waitBetweenShots;
-        SecondaryShoot(16, 21);
     }
 
     IEnumerator MedAttack3()
     {
-        SecondaryShoot(2, 7);
-        yield return waitBetweenShots;
-        SecondaryShoot(17, 22);
-        yield return waitBetweenShots;
         SecondaryShoot(13, 11);
         yield return waitBetweenShots;
         SecondaryShoot(14, 10);
@@ -303,10 +295,6 @@ public class Tank : MonoBehaviour
     IEnumerator HardAttack1()
     {
         SecondaryShoot(8, 6);
-        yield return waitBetweenShots;
-        SecondaryShoot(18, 16);
-        yield return waitBetweenShots;
-        SecondaryShoot(9, 5);
         yield return waitBetweenShots;
         SecondaryShoot(13, 11);
         yield return waitBetweenShots;
@@ -331,8 +319,6 @@ public class Tank : MonoBehaviour
         SecondaryShoot(11, 13);
         yield return waitBetweenShots;
         SecondaryShoot(16, 8);
-        yield return waitBetweenShots;
-        SecondaryShoot(12, 12);
         yield return waitBetweenShots;
         SecondaryShoot(7, 17);
         PrimaryShoot();

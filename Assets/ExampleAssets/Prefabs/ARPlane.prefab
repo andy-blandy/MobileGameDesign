@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5736581594543791272}
   - component: {fileID: 4850567699770404709}
   - component: {fileID: 3677315450072829694}
-  - component: {fileID: 7953324094329720777}
   - component: {fileID: 7096468269689538693}
   - component: {fileID: 8552019320052076660}
+  - component: {fileID: 4809177017283888189}
   m_Layer: 8
   m_Name: ARPlane
   m_TagString: AR_Plane
@@ -87,14 +87,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!33 &7953324094329720777
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4776765576899091622}
-  m_Mesh: {fileID: 0}
 --- !u!23 &7096468269689538693
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -150,3 +142,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FeatheringWidth: 0.2
+--- !u!33 &4809177017283888189
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4776765576899091622}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}

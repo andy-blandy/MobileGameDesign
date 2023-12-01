@@ -5,17 +5,38 @@ using UnityEngine;
 public class AR_Bullet : Bullet
 {
     public bool deflected;
+    public bool damagedTank;
 
-    void Start()
+    public override void OnEnable()
     {
         deflected = false;
+        damagedTank = false;
+
+        base.OnEnable();
+    }
+
+    void FixedUpdate()
+    {
+        if (!deflected)
+        {
+            return;
+        }
+
+        Vector3 tankPos = TankManager.instance.tankGameObject.transform.position;
+
+        transform.LookAt(tankPos);
+        rb.AddForce(transform.forward * 0.3f, ForceMode.Acceleration);
     }
 
     public override void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "AR_Enemy")
+        Debug.Log(other.gameObject.tag);
+        if (other.gameObject.tag == "AR_Tank" && !damagedTank)
         {
+            Debug.Log("Hit TANK!");
             TankManager.instance.tankScript.Damage();
+            damagedTank = true;
+
             Instantiate(AR_GameManager.instance.smokeEffect, other.contacts[0].point, Quaternion.identity, other.transform);
         }
 
@@ -40,9 +61,10 @@ public class AR_Bullet : Bullet
         lifeTimer = 0;
         deflected = true;
 
-        Vector3 tankPos = TankManager.instance.tankGameObject.transform.position;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
 
-        transform.LookAt(tankPos);
-        rb.AddForce(transform.forward * bulletSpeed * 2, ForceMode.Impulse);
     }
+
+
 }

@@ -4520,6 +4520,11 @@ MonoBehaviour:
   respawnPlayerAtCheckpoints: 0
   isCheckingForFailure: 1
   playerFailed: 0
+  deathCountUI: {fileID: 0}
+  playerLivesUI: {fileID: 0}
+  hardMode: 0
+  playerLives: 0
+  isTutorial: 1
   bossPrefab: {fileID: 0}
   bossPlatforms: []
   bossInstance: {fileID: 0}

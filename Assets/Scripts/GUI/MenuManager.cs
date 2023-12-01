@@ -20,6 +20,11 @@ public class MenuManager : MonoBehaviour
         MenuMusic.instance.KillMusic();
     }
 
+    public void SetDifficulty(string difficultyType)
+    {
+        PlayerPrefs.SetString("Difficulty", difficultyType);
+    }
+
     public void ExitGame()
     {
     #if UNITY_EDITOR
@@ -27,4 +32,6 @@ public class MenuManager : MonoBehaviour
     #endif
         Application.Quit();
     }
+
+
 }

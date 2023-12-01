@@ -28,6 +28,13 @@ public class GameManager : MonoBehaviour
     public bool isCheckingForFailure = false;
     [HideInInspector] public bool playerFailed;
 
+    [Header("Level Difficulty")]
+    public GameObject deathCountUI;
+    public GameObject playerLivesUI;
+    public bool hardMode;
+    public int playerLives;
+    public bool isTutorial;
+
     [Header("Boss Battle")]
     public GameObject bossPrefab;
     public GameObject[] bossPlatforms;
@@ -46,9 +53,6 @@ public class GameManager : MonoBehaviour
     private float lengthOfPiece = 30f; // All of the pieces have been designed to have an x-value of 30
 
     public static GameManager instance;
-    LevelProgress LevelProgress;
-
-    private float gameSpeed;
 
     void Awake()
     {
@@ -57,8 +61,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        gameSpeed = 1f;
-
         // Instantiate queue
         spawnedLevelPieces = new Queue<GameObject>();
 
@@ -80,7 +82,33 @@ public class GameManager : MonoBehaviour
             BeginLevel();
         }
 
+        if (!isTutorial)
+        {
+            SetDifficulty();
+        }
+
         SpawnPlayer();
+    }
+
+    void SetDifficulty()
+    {
+        string difficulty = PlayerPrefs.GetString("Difficulty");
+
+        if (difficulty.Equals("easy"))
+        {
+            deathCountUI.SetActive(true);
+            playerLivesUI.SetActive(false);
+
+            hardMode = false;
+        } else if (difficulty.Equals("hard"))
+        {
+            deathCountUI.SetActive(false);
+            playerLivesUI.SetActive(true);
+
+            hardMode = true;
+            playerLives = 3;
+            LevelProgress.instance.livesText.text = playerLives.ToString();
+        }
     }
 
     void Update()
@@ -196,12 +224,25 @@ public class GameManager : MonoBehaviour
 
     public void PlayerIsHit()
     {
-        if (respawnPlayerAtCheckpoints)
+        if (hardMode)
+        {
+            playerLives--;
+
+            if (playerLives <= 0)
+            {
+                LoseLevel();
+            }
+
+            LevelProgress.instance.livesText.text = playerLives.ToString();
+        } else
         {
             // Update scores
             LevelProgress.instance.deaths = LevelProgress.instance.deaths + 1;
             LevelProgress.instance.SetDeathText();
+        }
 
+        if (respawnPlayerAtCheckpoints)
+        {
             // Checkpoints
             if (currentPiece < 5)
             {
@@ -250,9 +291,13 @@ public class GameManager : MonoBehaviour
         CameraFollow.instance.SetOffsets(3.86f, 2.28f, -13.33f);
     }
 
+    public void LoseLevel()
+    {
+        SceneManager.LoadScene("LevelSelect");
+    }
+
     public void EndLevel()
     {
-        // Add code to change scene to the level select screen
         SceneManager.LoadScene("EndScreen");
     }
 
@@ -263,6 +308,6 @@ public class GameManager : MonoBehaviour
 
     public void UnpauseGame()
     {
-        Time.timeScale = gameSpeed;
+        Time.timeScale = 1f;
     }
 }

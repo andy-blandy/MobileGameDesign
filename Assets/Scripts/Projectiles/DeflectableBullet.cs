@@ -10,7 +10,9 @@ public class DeflectableBullet : Bullet
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
         isDeflected = false;
+        explosionTime = explosionParticleSystem.main.duration;
     }
 
     public void Deflect()
@@ -23,22 +25,17 @@ public class DeflectableBullet : Bullet
 
     public override void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("COLLIDED");
+
         if (collision.gameObject.tag == "Obstacle" && isDeflected)
         {
+            Debug.Log("COLLIDED WITH ENEMY");
             Destroy(collision.gameObject);
-            Destroy(gameObject);
         }
 
         if (collision.gameObject.tag == "Boss" && isDeflected)
         {
             collision.gameObject.GetComponent<Boss>().Damage();
-            Destroy(gameObject);
-
-        }
-
-        if (collision.gameObject.tag == "Obstacle")
-        {
-            return;
         }
 
         // Stop the object and play destroy effect
@@ -51,6 +48,7 @@ public class DeflectableBullet : Bullet
 
     public override void SaveBullet()
     {
+        Debug.Log("Destroying bullet");
         Destroy(gameObject);
     }
 }

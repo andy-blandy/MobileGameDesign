@@ -9,12 +9,10 @@ public class LevelProgress : MonoBehaviour
     int score = 0;
     float time = 0f;
     public int deaths = 0;
-    public bool speed = false;
 
-    public TextMeshProUGUI scoreText;
     public TextMeshProUGUI levelText;
-    public TextMeshProUGUI speedText;
     public TextMeshProUGUI deathText;
+    public TextMeshProUGUI livesText;
     public Slider progressSlider;
 
     #region Singleton
@@ -25,24 +23,16 @@ public class LevelProgress : MonoBehaviour
     }
     #endregion
 
-    // Start is called before the first frame update
     void Start()
     {
         SetDeathText();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (levelText.alpha > 0f)
         {
             levelText.alpha = levelText.alpha - 0.005f;
-        }
-
-        time = time + 0.5f;
-        if (time % 125 == 0)
-        {
-            score = score + 5;
         }
     }
 
@@ -55,6 +45,4 @@ public class LevelProgress : MonoBehaviour
     {
         progressSlider.value = newProgressValue;
     }
-
-
 }

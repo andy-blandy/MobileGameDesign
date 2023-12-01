@@ -64,6 +64,7 @@ public class Bullet : MonoBehaviour
 
     public IEnumerator PlayExplosionParticles()
     {
+        Debug.Log("PLAYING PARTICLES FOR " + explosionTime);
         model.SetActive(false);
 
         explosionParticleSystem.Play();

@@ -9,6 +9,9 @@ public class AR_Player : MonoBehaviour
     public int currentHealth;
     public int maxHealth = 3;
 
+    public float invincibilityTimer = 0.1f;
+    public bool isInvincible;
+
     [Header("Animation")]
     public Animator handAnimator;
 
@@ -33,7 +36,13 @@ public class AR_Player : MonoBehaviour
 
     public void Damage()
     {
+        if (isInvincible)
+        {
+            return;
+        }
+
         currentHealth--;
+        isInvincible = true;
 
         AR_HealthGUI.instance.SetHealth(currentHealth);
 
@@ -41,6 +50,14 @@ public class AR_Player : MonoBehaviour
         {
             AR_GameManager.instance.LoseGame();
         }
+
+        StartCoroutine(Invincible());
+    }
+
+    IEnumerator Invincible()
+    {
+        yield return new WaitForSeconds(invincibilityTimer);
+        isInvincible = false;
     }
 
     public void Attack()

@@ -9812,9 +9812,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8a14baa37236f449be381359480c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 0.3
+  bulletSpeed: 0.2
   rb: {fileID: 0}
   explosionParticleSystem: {fileID: 6767185331577450259}
+  explosionTime: 0
   model: {fileID: 5959012739202572030}
   lifeSpan: 5
   lifeTimer: 0

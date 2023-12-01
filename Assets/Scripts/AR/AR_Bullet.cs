@@ -6,6 +6,7 @@ public class AR_Bullet : Bullet
 {
     public bool deflected;
     public bool damagedTank;
+    public AudioSource damageSound;
 
     public override void OnEnable()
     {
@@ -13,6 +14,11 @@ public class AR_Bullet : Bullet
         damagedTank = false;
 
         base.OnEnable();
+    }
+
+    void Start()
+    {
+        damageSound = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -35,6 +41,7 @@ public class AR_Bullet : Bullet
         {
             Debug.Log("Hit TANK!");
             TankManager.instance.tankScript.Damage();
+            damageSound.Play();
             damagedTank = true;
 
             Instantiate(AR_GameManager.instance.smokeEffect, other.contacts[0].point, Quaternion.identity, other.transform);
